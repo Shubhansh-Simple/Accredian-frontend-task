@@ -2,10 +2,16 @@
  * Base template of our application
  */
 
+// Local
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 const App = () => {
   return (
     <>
-      <h1>Welcome to app</h1>
+      <Header />
+        <h1>Welcome to app</h1>
+      <Footer />
     </>
   );
 }
