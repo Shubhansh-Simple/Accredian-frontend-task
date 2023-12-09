@@ -15,25 +15,32 @@ import {
   RouterProvider
 } from 'react-router-dom';
 
+import reportWebVitals from './reportWebVitals';
+
 // Css file
 import './index.css';
 
 // Local
-import App from './App';
+import App        from './App';
+import HomeScreen from './screens/HomeScreen';
 
-import reportWebVitals from './reportWebVitals';
 
 /* 
  * Consist all routes of our application
  * Router - Mapping URL with Pages 
  */
-
 const router = createBrowserRouter(
   createRoutesFromElements(
 
     // Parent is App.js
     <Route path='/'
            element={ <App /> }>
+
+      {/* HomeScreen Page */}
+      <Route index={true} 
+             path='/' 
+             element={ <HomeScreen /> }/>
+
     </Route>
   )
 );
