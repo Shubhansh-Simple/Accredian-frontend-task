@@ -21,8 +21,10 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 
 // Local
-import App        from './App';
-import HomeScreen from './screens/HomeScreen';
+import App          from './App';
+import HomeScreen   from './screens/HomeScreen';
+import LoginScreen  from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
 
 
 /* 
@@ -36,10 +38,22 @@ const router = createBrowserRouter(
     <Route path='/'
            element={ <App /> }>
 
+      {/* Below urls will starts with '/' i.e. parent's url */}
+
       {/* HomeScreen Page */}
       <Route index={true} 
              path='/' 
              element={ <HomeScreen /> }/>
+
+      {/* LoginScreen Page */}
+      <Route index={true} 
+             path='login' 
+             element={ <LoginScreen /> }/>
+
+      {/* SignupScreen Page */}
+      <Route index={true} 
+             path='signup' 
+             element={ <SignupScreen /> }/>
 
     </Route>
   )
