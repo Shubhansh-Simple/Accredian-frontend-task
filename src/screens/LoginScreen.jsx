@@ -2,9 +2,11 @@
  * Login Page of our application
  */
 
+import React, {useState } from 'react';
+//import axios    from 'axios';
+
 // React-router
 import { Link } from 'react-router-dom';
-import axios    from 'axios';
 
 // React-Material-UI
 import { 
@@ -20,52 +22,83 @@ import {
 import LockIcon from '@mui/icons-material/Lock';
 
 
-/* Submitting form data to backend */
-const submitForm = () => {
-  console.log('submitForm is call');
-}
-
-
 const LoginScreen = () => {
-    const paperStyle = { padding :20,
-                         height:'70vh',
-                         width:280, 
-                         margin:'20px auto'
-    }
-    const avatarStyle = { backgroundColor:'#14A44D' }
 
-    return(
-      <Grid>
-        <Paper elevation={10} style={paperStyle}>
+  /*
+   * Required
+   * Username/Email & Password for Login
+   */
+  const [ username, setUsername ] = useState('');
+  const [ password, setPassword ] = useState('');
 
-          {/* Heading Section */}
-          <Grid align='center'>
-            <Avatar style={avatarStyle}>
-              <LockIcon />
-            </Avatar>
-            <h2>Sign In</h2>
-          </Grid>
+
+  /* Submitting form data to backend */
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit value is ',username, password );
+  }
+
+  const onUsernameChange = (e) => {
+    console.log('onUsernameChange is call and value is ',e.target.value);
+    setUsername(e.target.value);
+  }
+
+  const onPasswordChange = (e) => {
+    console.log('onPasswordChange is call and value is ',e.target.value);
+    setPassword(e.target.value);
+  }
+
+  /* CSS Properties */
+  const paperStyle = { padding :20,
+                       height:'70vh',
+                       width:280, 
+                       margin:'20px auto'
+                     }
+  const avatarStyle = { backgroundColor:'#14A44D' }
+
+  /* JSX CODE */
+  return(
+    <Grid>
+      <Paper elevation={10} style={paperStyle}>
+
+        {/* Heading Section */}
+        <Grid align='center'>
+          <Avatar style={avatarStyle}>
+            <LockIcon />
+          </Avatar>
+          <h2>Sign In</h2>
+        </Grid>
+
+        {/* Login Form */}
+        <form onSubmit={handleSubmit}>
 
           {/* Username Field */}
           <TextField label='Username' 
-                     placeholder='Enter username' 
-                     variant='outlined' fullWidth required />
+                     placeholder='Enter your username' 
+                     type='text'
+                     value={username}
+                     onChange={onUsernameChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
+          <br />
+          <br />
           {/* Password Field */}
-          <br />
-          <br />
           <TextField label='Password' 
-                     placeholder='Enter password' 
-                     type='password' 
-                     variant='outlined' fullWidth required/>
+                     placeholder='Enter your password' 
+                     type='password'
+                     value={password}
+                     onChange={onPasswordChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
+          <br />
+          <br />
+          <br />
           {/* Submit Button */}
-          <br />
-          <br />
-          <br />
           <Button type='submit' 
-                  component={Link}
-                  to='/'
                   variant='contained' 
                   style={{ backgroundColor:'#14A44D', color:'#FBFBFB' }} 
                   fullWidth>
@@ -73,20 +106,21 @@ const LoginScreen = () => {
               Sign in
             </strong>
           </Button>
+        </form>
 
-          {/* Account doesn't exist, Signup Link */}
-          <br />
-          <br />
-          <Typography >
-            New User ?<span> </span>  
-            <Link to='/signup' style={{ color:'#3B71CA' }} >
-              Register
-            </Link>
-          </Typography>
+        {/* Account doesn't exist, Signup Link */}
+        <br />
+        <br />
+        <Typography >
+          New User ?<span> </span>  
+          <Link to='/signup' style={{ color:'#3B71CA' }} >
+            Register
+          </Link>
+        </Typography>
 
-        </Paper>
-      </Grid>
-    );
+      </Paper>
+    </Grid>
+  );
 }
 
 export default LoginScreen;
