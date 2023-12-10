@@ -23,8 +23,8 @@ const Footer = () => {
              component="footer" 
              square 
              variant="outlined">
-        <Container maxWidth='lg'>
 
+        <Container maxWidth='lg'>
           <Box
             sx={{
               flexGrow: 1,
@@ -41,16 +41,6 @@ const Footer = () => {
           </Box>
         </Container>
       </Paper>
-
-
-
-
-
-
-
-
-
-
     </footer>
   );
 };
