@@ -2,7 +2,10 @@
  * Signup Page of our application
  */
 
-import React from 'react'
+// React-router
+import { Link } from 'react-router-dom';
+
+// React-Material-UI
 import { 
   Grid,
   Paper,
@@ -10,19 +13,19 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
 } from '@mui/material'
 
+// Material-ui-icons
 import LockIcon from '@mui/icons-material/Lock';
 
 const SignupScreen = () => {
     const paperStyle = { padding :20,
-                         height:'70vh',
+                         height:'75vh',
                          width:280, 
                          margin:'20px auto'
     }
-    const avatarStyle = { backgroundColor:'#1bbd7e' }
-    const btnstyle = { margin:'8px 0' }
+
+    const avatarStyle = { backgroundColor:'#DC4C64' }
 
     return(
       <Grid>
@@ -40,36 +43,50 @@ const SignupScreen = () => {
                      variant='outlined' fullWidth required />
 
           {/* Email Field */}
+          <br />
+          <br />
           <TextField label='Email' 
                      placeholder='Enter email' 
                      type='email'
                      variant='outlined' fullWidth required />
 
           {/* Password Field */}
+          <br />
+          <br />
           <TextField label='Password' 
                      placeholder='Enter password' 
                      type='password' 
                      variant='outlined' fullWidth required/>
 
           {/* Password Field Confirm */}
+          <br />
+          <br />
           <TextField label='Confirm Password' 
                      placeholder='Confirm password' 
                      type='password' 
                      variant='outlined' fullWidth required/>
 
+          {/* Submit Button */}
           <br />
-          { /* Submit Button */ }
+          <br />
+          <br />
           <Button type='submit' 
-                  color='error' 
+                  component={Link}
+                  to='/'
                   variant='contained' 
-                  style={btnstyle} fullWidth>
-            Register
+                  style={{ backgroundColor:'#DC4C64', color:'#FBFBFB' }} 
+                  fullWidth>
+            <strong>
+              Register
+            </strong>
           </Button>
 
           { /* Signup Link */ }
+          <br />
+          <br />
           <Typography >
-            Already have an account ? 
-            <Link href='/login' >
+            Already have an account ?<span> </span>  
+            <Link to='/login' >
               Login
             </Link>
           </Typography>

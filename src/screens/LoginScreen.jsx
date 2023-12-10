@@ -2,8 +2,8 @@
  * Login Page of our application
  */
 
-// React
-import React from 'react'
+// React-router
+import { Link } from 'react-router-dom';
 
 // React-Material-UI
 import { 
@@ -13,12 +13,9 @@ import {
   TextField,
   Button,
   Typography,
-  Checkbox,
-  Link,
-  FormControlLabel
 } from '@mui/material'
 
-// material-ui-icons
+// Material-ui-icons
 import LockIcon from '@mui/icons-material/Lock';
 
 
@@ -28,12 +25,13 @@ const LoginScreen = () => {
                          width:280, 
                          margin:'20px auto'
     }
-    const avatarStyle = { backgroundColor:'#1bbd7e' }
-    const btnstyle = { margin:'8px 0' }
+    const avatarStyle = { backgroundColor:'#14A44D' }
 
     return(
       <Grid>
         <Paper elevation={10} style={paperStyle}>
+
+          {/* Heading Section */}
           <Grid align='center'>
             <Avatar style={avatarStyle}>
               <LockIcon />
@@ -47,30 +45,35 @@ const LoginScreen = () => {
                      variant='outlined' fullWidth required />
 
           {/* Password Field */}
+          <br />
+          <br />
           <TextField label='Password' 
                      placeholder='Enter password' 
                      type='password' 
                      variant='outlined' fullWidth required/>
 
-          <FormControlLabel
-              control={
-                <Checkbox name='checkedB' color='primary' />
-              }
-              label='Remember me' />
-
-          { /* Submit Button */ }
+          {/* Submit Button */}
+          <br />
+          <br />
+          <br />
           <Button type='submit' 
-                  color='success' 
+                  component={Link}
+                  to='/'
                   variant='contained' 
-          style={btnstyle} fullWidth>
-            Sign in
+                  style={{ backgroundColor:'#14A44D', color:'#FBFBFB' }} 
+                  fullWidth>
+            <strong>
+              Sign in
+            </strong>
           </Button>
 
-          { /* Signup Link */ }
+          {/* Account doesn't exist, Signup Link */}
+          <br />
+          <br />
           <Typography >
-            New User ?   
-            <Link href='/signup' >
-                    Register
+            New User ?<span> </span>  
+            <Link to='/signup' style={{ color:'#3B71CA' }} >
+              Register
             </Link>
           </Typography>
 

@@ -17,8 +17,7 @@ import LogoutIcon    from '@mui/icons-material/Logout';
 const Header = () => {
   return (
     <header>
-
-      <AppBar position='static' sx={{ bgcolor: "black" }}>
+      <AppBar position='static' style={{ backgroundColor: "#332D2D" }}>
         <Toolbar>
           {/* The Typography component applies 
                default font weights and sizes */}

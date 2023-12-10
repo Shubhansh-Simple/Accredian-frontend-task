@@ -34,7 +34,7 @@ const Footer = () => {
           >
             <Typography variant='small' color='initial'>
               <p>
-                &copy; {currentYear} Copyright :      
+                &copy; {currentYear} Copyright<span> </span>     
                 <strong>{developerId}</strong>
               </p>
             </Typography>
