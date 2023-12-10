@@ -4,6 +4,7 @@
 
 // React-router
 import { Link } from 'react-router-dom';
+import axios    from 'axios';
 
 // React-Material-UI
 import { 
@@ -17,6 +18,12 @@ import {
 
 // Material-ui-icons
 import LockIcon from '@mui/icons-material/Lock';
+
+
+/* Submitting form data to backend */
+const submitForm = () => {
+  console.log('submitForm is call');
+}
 
 
 const LoginScreen = () => {

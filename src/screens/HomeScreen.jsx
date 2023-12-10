@@ -2,11 +2,29 @@
  * HomeScreen of our application
  */
 
-import { 
-  Grid,
-} from '@mui/material'
+import { useEffect, useState } from 'react';
+import { Grid } from '@mui/material'
+
+/*
+ * Sending the get request
+ * with the token
+ * if authenticated then stay
+ * otherwise redirect to the 
+ * Login page
+ * useEffect()
+ */
 
 const HomeScreen = () => {
+
+  /* Send get request to the server 
+   * which decides weather i stay 
+   * or redirected to login page
+   */
+  useEffect( () => {
+    console.log('Use Effect is called.');
+  },[]); 
+
+
   return (
     <Grid
       container
