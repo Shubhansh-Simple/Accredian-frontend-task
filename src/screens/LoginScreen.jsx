@@ -25,27 +25,31 @@ import LockIcon from '@mui/icons-material/Lock';
 const LoginScreen = () => {
 
   /*
-   * Required
-   * Username/Email & Password for Login
+   * Fields Required for login
+   * Username/Email and Password
    */
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
 
+  /* Detect Change In Username */
+  const onUsernameChange = (e) => {
+    console.log('onUsernameChange is call and value is ',
+                          e.target.value);
+
+    setUsername(e.target.value);
+  }
+
+  /* Detect Change In Password */
+  const onPasswordChange = (e) => {
+    console.log('onPasswordChange is call and value is ',e.target.value);
+    setPassword(e.target.value);
+  }
+
   /* Submitting form data to backend */
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit value is ',username, password );
-  }
-
-  const onUsernameChange = (e) => {
-    console.log('onUsernameChange is call and value is ',e.target.value);
-    setUsername(e.target.value);
-  }
-
-  const onPasswordChange = (e) => {
-    console.log('onPasswordChange is call and value is ',e.target.value);
-    setPassword(e.target.value);
   }
 
   /* CSS Properties */

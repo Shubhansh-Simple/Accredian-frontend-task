@@ -2,9 +2,11 @@
  * Signup Page of our application
  */
 
+import React, {useState } from 'react';
+
 // React-router
 import { Link } from 'react-router-dom';
-import axios    from 'axios';
+//import axios    from 'axios';
 
 // React-Material-UI
 import { 
@@ -19,67 +21,120 @@ import {
 // Material-ui-icons
 import LockIcon from '@mui/icons-material/Lock';
 
-/* Submitting form data to backend */
-const submitForm = () => {
-  console.log('submitForm is call');
-}
-
 
 const SignupScreen = () => {
-    const paperStyle = { padding :20,
-                         height:'75vh',
-                         width:280, 
-                         margin:'20px auto'
-    }
 
-    const avatarStyle = { backgroundColor:'#DC4C64' }
+  /*
+   * Fields Required for signup
+   * Username,Email,Password, Confirm Password
+   */
+  const [ username, setUsername ]               = useState('');
+  const [ password, setPassword ]               = useState('');
+  const [ email, setEmail ]                     = useState('');
+  const [ confirmPassword, setConfirmPassword ] = useState('');
 
-    return(
-      <Grid>
-        <Paper elevation={10} style={paperStyle}>
-          <Grid align='center'>
-            <Avatar style={avatarStyle}>
-              <LockIcon />
-            </Avatar>
-            <h2>Sign Up</h2>
-          </Grid>
+
+  /* Detect Change In Username */
+  const onUsernameChange = (e) => {
+    setUsername(e.target.value);
+  }
+
+  /* Detect Change In Email */
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+  }
+
+  /* Detect Change In Password */
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  }
+
+  /* Detect Change In Confirm Password */
+  const onConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  }
+
+  /* Submitting form data to backend */
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit value is ',
+       username, password, email, confirmPassword );
+  }
+
+
+  const paperStyle = { padding :20,
+                       height:'75vh',
+                       width:280, 
+                       margin:'20px auto'
+  }
+
+  const avatarStyle = { backgroundColor:'#DC4C64' }
+
+  return(
+    <Grid>
+      <Paper elevation={10} style={paperStyle}>
+        <Grid align='center'>
+          <Avatar style={avatarStyle}>
+            <LockIcon />
+          </Avatar>
+          <h2>Sign Up</h2>
+        </Grid>
+
+        {/* Submit Form */}
+        <form onSubmit={handleSubmit}>
 
           {/* Username Field */}
           <TextField label='Username' 
-                     placeholder='Enter username' 
-                     variant='outlined' fullWidth required />
+                     placeholder='Enter your username' 
+                     type='text'
+                     value={username}
+                     onChange={onUsernameChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
+          <br />
+          <br />
           {/* Email Field */}
-          <br />
-          <br />
           <TextField label='Email' 
-                     placeholder='Enter email' 
+                     placeholder='Enter your email' 
                      type='email'
-                     variant='outlined' fullWidth required />
+                     value={email}
+                     onChange={onEmailChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
+
+          <br />
+          <br />
           {/* Password Field */}
-          <br />
-          <br />
           <TextField label='Password' 
-                     placeholder='Enter password' 
-                     type='password' 
-                     variant='outlined' fullWidth required/>
+                     placeholder='Enter your password' 
+                     type='password'
+                     value={password}
+                     onChange={onPasswordChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
           {/* Password Field Confirm */}
           <br />
           <br />
           <TextField label='Confirm Password' 
-                     placeholder='Confirm password' 
-                     type='password' 
-                     variant='outlined' fullWidth required/>
+                     placeholder='Confirm your password' 
+                     type='password'
+                     value={confirmPassword}
+                     onChange={onConfirmPasswordChange}
+                     variant='outlined' 
+                     fullWidth 
+                     required />
 
           {/* Submit Button */}
           <br />
           <br />
           <br />
           <Button type='submit' 
-                  component={Link}
-                  to='/'
                   variant='contained' 
                   style={{ backgroundColor:'#DC4C64', color:'#FBFBFB' }} 
                   fullWidth>
@@ -87,20 +142,21 @@ const SignupScreen = () => {
               Register
             </strong>
           </Button>
+        </form>
 
-          { /* Signup Link */ }
-          <br />
-          <br />
-          <Typography >
-            Already have an account ?<span> </span>  
-            <Link to='/login' >
-              Login
-            </Link>
-          </Typography>
+        { /* Signup Link */ }
+        <br />
+        <br />
+        <Typography >
+          Already have an account ?<span> </span>  
+          <Link to='/login' >
+            Login
+          </Link>
+        </Typography>
 
-        </Paper>
-      </Grid>
-    );
+      </Paper>
+    </Grid>
+  );
 }
 
 export default SignupScreen;
