@@ -6,6 +6,7 @@ import React, {useState } from 'react';
 
 // React-router
 import { Link } from 'react-router-dom';
+
 //import axios    from 'axios';
 
 // React-Material-UI
@@ -21,12 +22,18 @@ import {
 // Material-ui-icons
 import LockIcon from '@mui/icons-material/Lock';
 
+// Local
+import { 
+  paperStyle,
+  avatarStyle
+} from '../css/style.js';
+
 
 const SignupScreen = () => {
 
   /*
-   * Fields Required for signup
-   * Username,Email,Password, Confirm Password
+   * Following fields required for signup
+   * Username, Email, Password, Confirm Password
    */
   const [ username, setUsername ]               = useState('');
   const [ password, setPassword ]               = useState('');
@@ -60,15 +67,6 @@ const SignupScreen = () => {
     console.log('handleSubmit value is ',
        username, password, email, confirmPassword );
   }
-
-
-  const paperStyle = { padding :20,
-                       height:'75vh',
-                       width:280, 
-                       margin:'20px auto'
-  }
-
-  const avatarStyle = { backgroundColor:'#DC4C64' }
 
   return(
     <Grid>
