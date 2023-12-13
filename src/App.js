@@ -9,7 +9,6 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-
 /*
  * Router uses the outlet ( index.js )
  * like which component need to show
@@ -20,15 +19,12 @@ const App = () => {
     <>
       <Header />
 
-        {/* From router path */}
-        <Outlet />
+      {/* From router path */}
+      <Outlet />
 
       <Footer />
     </>
   );
-}
+};
 
 export default App;
-
-
-

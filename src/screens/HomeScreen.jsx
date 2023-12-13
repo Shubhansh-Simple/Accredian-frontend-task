@@ -2,7 +2,7 @@
  * HomeScreen of our application
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Grid } from '@mui/material'
 
 /*

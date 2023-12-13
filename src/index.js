@@ -26,6 +26,8 @@ import HomeScreen   from './screens/HomeScreen';
 import LoginScreen  from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 
+import PracticeScreen from './screens/PracticeScreen';
+
 
 /* 
  * Consist all routes of our application
@@ -54,6 +56,11 @@ const router = createBrowserRouter(
       <Route index={true} 
              path='signup' 
              element={ <SignupScreen /> }/>
+
+      {/* SignupScreen Page */}
+      <Route index={true} 
+             path='practice' 
+             element={ <PracticeScreen /> }/>
 
     </Route>
   )
