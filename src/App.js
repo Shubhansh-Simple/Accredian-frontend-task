@@ -16,14 +16,14 @@ import Footer from './components/Footer';
  */
 const App = () => {
   return (
-    <>
+    <div className='bg-light'>
       <Header />
 
       {/* From router path */}
       <Outlet />
 
       <Footer />
-    </>
+    </div>
   );
 };
 

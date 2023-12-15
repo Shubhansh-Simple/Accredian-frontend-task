@@ -21,7 +21,7 @@ const AuthRadioBtn = ( {title, iconStyle} ) =>{
         <LinkContainer to='/login'>
           <ToggleButton className='px-5' 
                         type='radio' 
-                        variant='outline-primary' 
+                        variant='outline-dark' 
                         size='lg'>
             Login
           </ToggleButton>
@@ -31,7 +31,7 @@ const AuthRadioBtn = ( {title, iconStyle} ) =>{
         <LinkContainer to='/signup'>
           <ToggleButton className='px-5'
                         type='radio' 
-                        variant='outline-danger' 
+                        variant='outline-dark' 
                         size='lg'>
             Sign Up
           </ToggleButton>

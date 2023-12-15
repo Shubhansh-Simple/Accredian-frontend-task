@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 // React-Bootstrap
 import { Form, 
+  Container,
   Card,
   Button,
 } from 'react-bootstrap'; 
@@ -31,11 +32,14 @@ const LoginScreen = () => {
   // const onPasswordChange = (e) => {}
 
   // /* Submitting form data to backend */
-  // const handleSubmit = e => {}
+  const handleSubmit = e => {
+    console.log('Submit function working');
+  }
 
   /* JSX CODE */
   return(
-    <div className='px-3 bg-light'>
+
+    <Container className='px-3'>
       <br />
       <br />
 
@@ -73,7 +77,7 @@ const LoginScreen = () => {
           {/* Submit Button */}
           <br />
           <div className='text-center'>
-            <Button variant='primary w-50' 
+            <Button variant='primary w-60' 
                     size='lg' 
                     onClick={{}}
                     className='px-5'>
@@ -95,7 +99,7 @@ const LoginScreen = () => {
       <br />
       <br />
       <br />
-    </div>
+    </Container>
   );
 }
 

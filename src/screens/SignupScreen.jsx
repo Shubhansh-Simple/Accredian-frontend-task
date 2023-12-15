@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 // React-Bootstrap
 import { Form, 
+  Container,
   Card,
   Button,
 } from 'react-bootstrap'; 
@@ -36,7 +37,7 @@ const SignupScreen = () => {
   /* JSX CODE */
   return(
 
-    <div className='px-3 bg-light'>
+    <Container className='px-3'>
       <br />
       <br />
 
@@ -111,7 +112,7 @@ const SignupScreen = () => {
       </Card>
       <br />
       <br />
-    </div>
+    </Container>
   );
 }
 
