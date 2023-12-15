@@ -5,36 +5,47 @@
 // React-router
 import {LinkContainer} from 'react-router-bootstrap';
 
+// React-icons
+import { MdLockOutline } from "react-icons/md";
+
+// React-bootstrap
 import ToggleButton    from 'react-bootstrap/ToggleButton';
 import ButtonGroup     from 'react-bootstrap/ButtonGroup';
 
-const AuthRadioBtn = () =>{
+const AuthRadioBtn = ( {title, iconStyle} ) =>{
   return (
     <>
-    <br />
-    <ButtonGroup className='my-5'>
+      <ButtonGroup>
 
-      {/* Navigate to Login Form */}
-      <LinkContainer to='/login'>
-        <ToggleButton className='px-5' 
-                      type='radio' 
-                      variant='outline-primary' 
-                      size='lg'>
-          Login
-        </ToggleButton>
-      </LinkContainer>
+        {/* Navigate to Login Form */}
+        <LinkContainer to='/login'>
+          <ToggleButton className='px-5' 
+                        type='radio' 
+                        variant='outline-primary' 
+                        size='lg'>
+            Login
+          </ToggleButton>
+        </LinkContainer>
 
-      {/* Navigate to Signup Form */}
-      <LinkContainer to='/signup'>
-        <ToggleButton className='px-5'
-                      type='radio' 
-                      variant='outline-primary' 
-                      size='lg'>
-          Sign Up
-        </ToggleButton>
-      </LinkContainer>
+        {/* Navigate to Signup Form */}
+        <LinkContainer to='/signup'>
+          <ToggleButton className='px-5'
+                        type='radio' 
+                        variant='outline-danger' 
+                        size='lg'>
+            Sign Up
+          </ToggleButton>
+        </LinkContainer>
 
-    </ButtonGroup>
+      </ButtonGroup>
+      <br />
+      <br />
+      <span class={`${iconStyle}`}>
+        <MdLockOutline/>
+      </span>
+      <br />
+      <br />
+      <h3><strong>{title}</strong></h3>
     </>
   );
 }

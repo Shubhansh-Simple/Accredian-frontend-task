@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Lock icons for login/signup page */
+.iconLogin {
+  border-radius: 50%;
+  background-color: #0275d8;
+  color : white;
+  padding: 10px;
+  font-size: 25px;
+}
+.iconSignup {
+  border-radius: 50%;
+  background-color: #dc3545;
+  color : white;
+  padding: 10px;
+  font-size: 25px;
+}
+
+
+
