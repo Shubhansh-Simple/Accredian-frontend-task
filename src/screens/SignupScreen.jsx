@@ -64,7 +64,7 @@ const SignupScreen = () => {
         <AuthRadioBtn />
 
         {/* CARD */}
-        <Card className='my-2 py-2 rounded bg-light px-4'>
+        <Card className='my-2 py-5 rounded px-2'>
 
           {/* CARD HEADER */}
           <div className='text-center'>
@@ -80,8 +80,9 @@ const SignupScreen = () => {
 
 
           { /* CARD FOOTER */ }
-          <Card.Footer>
+          <Card.Footer className='bg-white'>
             { /* Login button */ }
+            <br />
             <Button variant='danger' 
                     size='md' 
                     onClick={{}}
@@ -91,6 +92,11 @@ const SignupScreen = () => {
           </Card.Footer>
 
         </Card>
+        <br />
+        <br />
+        <b>Already a member ? <span> </span>
+          <Link to='/login'>Login</Link>
+        </b>
       </Container>
     </div>
   );

@@ -25,7 +25,6 @@ const LoginScreen = () => {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-
   /* Detect Change In Username */
   const onUsernameChange = (e) => {}
 
@@ -42,7 +41,7 @@ const LoginScreen = () => {
         <AuthRadioBtn />
 
         {/* CARD */}
-        <Card className='my-2 py-2 rounded bg-light px-4'>
+        <Card className='my-2 py-5 rounded px-2'>
 
           {/* CARD HEADER */}
           <div className='text-center'>
@@ -58,22 +57,22 @@ const LoginScreen = () => {
 
 
           { /* CARD FOOTER */ }
-          <Card.Footer>
+          <Card.Footer className='bg-white'>
             { /* Login button */ }
+            <br />
             <Button variant='outline-primary' 
                     size='md' 
                     onClick={{}}
                     className='px-5'>
               Sign In
             </Button>
-            <br />
-            <br />
-            <b>Not a member ? <span> </span>
-              <Link to='/signup'>Register</Link>
-            </b>
           </Card.Footer>
-
         </Card>
+        <br />
+        <br />
+        <b>Not a member ? <span> </span>
+          <Link to='/signup'>Register</Link>
+        </b>
       </Container>
     </div>
   );
