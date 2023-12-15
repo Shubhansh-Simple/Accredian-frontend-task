@@ -7,6 +7,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+// To make bootstrap work, with react-bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // React Router
 import {
   createBrowserRouter,

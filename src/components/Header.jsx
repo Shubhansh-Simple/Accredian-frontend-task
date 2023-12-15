@@ -1,46 +1,70 @@
 /*
- * Header of the entire application
+ * Header of entire application
  */
 
-// React-router
-import { Link } from 'react-router-dom';
+// React-bootstrap
+import { Button,
+         Navbar,
+         Nav,
+         Container }     from 'react-bootstrap';
 
-// React-Material-UI
-import AppBar        from '@mui/material/AppBar';
-import Toolbar       from '@mui/material/Toolbar';
-import Typography    from '@mui/material/Typography';
-import Button        from '@mui/material/Button';
+// React-Router
+import { LinkContainer } from 'react-router-bootstrap'; 
 
-// Material Icons
-import LogoutIcon    from '@mui/icons-material/Logout';
+// React-Icons
+import { FaHouse }  from 'react-icons/fa6';
+import { IoLogOut } from 'react-icons/io5';
 
+/*
+ * Header of the HomeScreen
+ */
 const Header = () => {
   return (
     <header>
-      <AppBar position='static' style={{ backgroundColor: "#332D2D" }}>
-        <Toolbar>
-          {/* The Typography component applies 
-               default font weights and sizes */}
-          <Typography
-              variant='h6'
-              component='div'
-              sx={{ flexGrow: 1 }}
-          >
-            <strong>Accredian</strong>
-          </Typography>
+      <Navbar bg='dark'>
+        <Container>
 
-          {/* Shows only if user is authenticated */}
-          <Button component={Link} 
-                  to="login" 
-                  variant="contained" 
-                  startIcon={<LogoutIcon />}
-                  color="error"> 
-            <b>Log out</b>
-          </Button>
-        </Toolbar>
-      </AppBar>
+          {/* LINK - HomeScreen Page */}
+          <Nav className='justify-content-left'>
+
+            <LinkContainer to='/'>
+              <Navbar.Brand className='text-white'>
+                <FaHouse /> 
+                &nbsp;
+                <strong>Home</strong>
+              </Navbar.Brand>
+            </LinkContainer>
+          </Nav>
+
+          {/* LINK - Practice Page */}
+          <Nav className='justify-content-left'>
+
+            <LinkContainer to='practice'>
+              <Navbar.Brand>
+                <strong className='text-white'>Practice</strong>
+              </Navbar.Brand>
+            </LinkContainer>
+          </Nav>
+
+          {/* LINK - Logout */}
+          <Nav className='justify-content-right'>
+
+            <LinkContainer to='/login'>
+              <Nav.Item>
+                <Button variant='danger'>
+                    <IoLogOut />
+                    &nbsp;
+                    <b>Logout</b>
+                </Button>
+              </Nav.Item>
+            </LinkContainer>
+          </Nav>
+
+        </Container>
+      </Navbar>
     </header>
-  );
+  )
 }
 
 export default Header;
+

@@ -8,18 +8,10 @@ import React, {useState } from 'react';
 // React-router
 import { Link } from 'react-router-dom';
 
-// React-Material-UI
-import { 
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-} from '@mui/material'
+// React-Bootstrap
+import { Container, Card, Button, Row, Col } from 'react-bootstrap'; 
 
-// Material-ui-icons
-import LockIcon from '@mui/icons-material/Lock';
+// React-icons
 
 
 const LoginScreen = () => {
@@ -33,97 +25,54 @@ const LoginScreen = () => {
 
 
   /* Detect Change In Username */
-  const onUsernameChange = (e) => {
-    console.log('onUsernameChange is call and value is ',
-                          e.target.value);
-
-    setUsername(e.target.value);
-  }
+  const onUsernameChange = (e) => {}
 
   /* Detect Change In Password */
-  const onPasswordChange = (e) => {
-    console.log('onPasswordChange is call and value is ',e.target.value);
-    setPassword(e.target.value);
-  }
+  const onPasswordChange = (e) => {}
 
   /* Submitting form data to backend */
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit value is ',username, password );
-  }
-
-  /* CSS Properties */
-  const paperStyle = { padding :20,
-                       height:'70vh',
-                       width:280, 
-                       margin:'20px auto'
-                     }
-  const avatarStyle = { backgroundColor:'#14A44D' }
+  const handleSubmit = e => {}
 
   /* JSX CODE */
   return(
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
+    <div className='text-center'>
+      <Container>
 
-        {/* Heading Section */}
-        <Grid align='center'>
-          <Avatar style={avatarStyle}>
-            <LockIcon />
-          </Avatar>
-          <h2>Sign In</h2>
-        </Grid>
+        {/* CARD */}
+        <Card className='my-2 py-2 rounded bg-light px-4'>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit}>
+          {/* CARD HEADER */}
+          <div className='text-center'>
+            <Card.Text as='h3'>
+              Header
+            </Card.Text>
+          </div>
 
-          {/* Username Field */}
-          <TextField label='Username' 
-                     placeholder='Enter your username' 
-                     type='text'
-                     value={username}
-                     onChange={onUsernameChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
+          { /* CARD BODY */ }
+          <Card.Body>
+            Body
+          </Card.Body>
 
-          <br />
-          <br />
-          {/* Password Field */}
-          <TextField label='Password' 
-                     placeholder='Enter your password' 
-                     type='password'
-                     value={password}
-                     onChange={onPasswordChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
 
-          <br />
-          <br />
-          <br />
-          {/* Submit Button */}
-          <Button type='submit' 
-                  variant='contained' 
-                  style={{ backgroundColor:'#14A44D', color:'#FBFBFB' }} 
-                  fullWidth>
-            <strong>
-              Sign in
-            </strong>
-          </Button>
-        </form>
+          { /* CARD FOOTER */ }
+          <Card.Footer>
+            { /* Login button */ }
+            <Button variant='outline-primary' 
+                    size='md' 
+                    onClick={{}}
+                    className='px-5'>
+              Sign In
+            </Button>
+            <br />
+            <br />
+            <b>Not a member ? <span> </span>
+              <Link to='/signup'>Register</Link>
+            </b>
+          </Card.Footer>
 
-        {/* Account doesn't exist, Signup Link */}
-        <br />
-        <br />
-        <Typography >
-          New User ?<span> </span>  
-          <Link to='/signup' style={{ color:'#3B71CA' }} >
-            Register
-          </Link>
-        </Typography>
-
-      </Paper>
-    </Grid>
+        </Card>
+      </Container>
+    </div>
   );
 }
 

@@ -2,11 +2,9 @@
  * HomeScreen of our application
  */
 
-import { useEffect } from "react";
-import { Grid, Avatar } from "@mui/material";
+import { useEffect } from 'react';
 
-// Material-UI icons
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Row } from 'react-bootstrap';
 
 /*
  * Sending the get request
@@ -23,34 +21,21 @@ const HomeScreen = () => {
    * or redirected to login page
    */
   useEffect(() => {
-    console.log("Use Effect is called.");
+    console.log('Use Effect is called.');
   }, []);
 
-  const avatarStyle = { backgroundColor:'#5cb85c' }
-
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ minHeight: "90vh" }}
-    >
-      <h2>Welcome To Home, Shubhansh</h2>
-
-      <Avatar style={avatarStyle}>
-        <CheckCircleIcon />
-      </Avatar>
-      <br />
-
-      <b>
-        <small style={{ color: "green" }}>
-          ( Login Successfully )
-        </small>
-      </b>
-    </Grid>
+    <div className="d-flex align-items-center  justify-content-center vh-100"> 
+      <Row className='text-center'>
+        <h2>Welcome To Home, Shubhansh</h2>
+        <h6>
+          <i className='text-success'>( Login Successfully )</i>
+        </h6>
+      </Row>
+    </div>
   );
 };
 
 export default HomeScreen;
+
+

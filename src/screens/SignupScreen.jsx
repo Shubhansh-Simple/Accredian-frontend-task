@@ -7,26 +7,8 @@ import React, {useState } from 'react';
 // React-router
 import { Link } from 'react-router-dom';
 
-//import axios    from 'axios';
-
-// React-Material-UI
-import { 
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-} from '@mui/material'
-
-// Material-ui-icons
-import LockIcon from '@mui/icons-material/Lock';
-
-// Local
-import { 
-  paperStyle,
-  avatarStyle
-} from '../css/style.js';
+// React-bootstrap
+import { Container, Card, Button } from 'react-bootstrap';
 
 
 const SignupScreen = () => {
@@ -64,96 +46,50 @@ const SignupScreen = () => {
   /* Submitting form data to backend */
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('handleSubmit value is ',
-       username, password, email, confirmPassword );
+    const formSubmitData = {
+      'username' : username,
+      'password' : password,
+      'email'    : email,
+      'confirmPassword' : confirmPassword
+    }
+    console.log('Data - ', formSubmitData);
+    console.log('JSON Data - ', JSON.stringify(formSubmitData) );
   }
 
   return(
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align='center'>
-          <Avatar style={avatarStyle}>
-            <LockIcon />
-          </Avatar>
-          <h2>Sign Up</h2>
-        </Grid>
+    <div className='text-center'>
+      <Container>
 
-        {/* Submit Form */}
-        <form onSubmit={handleSubmit}>
+        {/* CARD */}
+        <Card className='my-2 py-2 rounded bg-light px-4'>
 
-          {/* Username Field */}
-          <TextField label='Username' 
-                     placeholder='Enter your username' 
-                     type='text'
-                     value={username}
-                     onChange={onUsernameChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
+          {/* CARD HEADER */}
+          <div className='text-center'>
+            <Card.Text as='h3'>
+              Header
+            </Card.Text>
+          </div>
 
-          <br />
-          <br />
-          {/* Email Field */}
-          <TextField label='Email' 
-                     placeholder='Enter your email' 
-                     type='email'
-                     value={email}
-                     onChange={onEmailChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
+          { /* CARD BODY */ }
+          <Card.Body>
+            Body
+          </Card.Body>
 
 
-          <br />
-          <br />
-          {/* Password Field */}
-          <TextField label='Password' 
-                     placeholder='Enter your password' 
-                     type='password'
-                     value={password}
-                     onChange={onPasswordChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
+          { /* CARD FOOTER */ }
+          <Card.Footer>
+            { /* Login button */ }
+            <Button variant='danger' 
+                    size='md' 
+                    onClick={{}}
+                    className='px-5'>
+              Create Account
+            </Button>
+          </Card.Footer>
 
-          {/* Password Field Confirm */}
-          <br />
-          <br />
-          <TextField label='Confirm Password' 
-                     placeholder='Confirm your password' 
-                     type='password'
-                     value={confirmPassword}
-                     onChange={onConfirmPasswordChange}
-                     variant='outlined' 
-                     fullWidth 
-                     required />
-
-          {/* Submit Button */}
-          <br />
-          <br />
-          <br />
-          <Button type='submit' 
-                  variant='contained' 
-                  style={{ backgroundColor:'#DC4C64', color:'#FBFBFB' }} 
-                  fullWidth>
-            <strong>
-              Register
-            </strong>
-          </Button>
-        </form>
-
-        { /* Signup Link */ }
-        <br />
-        <br />
-        <Typography >
-          Already have an account ?<span> </span>  
-          <Link to='/login' >
-            Login
-          </Link>
-        </Typography>
-
-      </Paper>
-    </Grid>
+        </Card>
+      </Container>
+    </div>
   );
 }
 

@@ -18,6 +18,8 @@ const PracticeScreen = () => {
   return (
     <>
       {/* In order to run a logic in UI */}
+      <h1 className='text-center text-danger'>Practice Page</h1>
+      <br />
       <table>
         <tr>
           <th>Username</th>
