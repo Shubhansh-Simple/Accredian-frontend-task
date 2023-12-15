@@ -32,9 +32,9 @@ const LoginScreen = () => {
   // const onPasswordChange = (e) => {}
 
   // /* Submitting form data to backend */
-  const handleSubmit = e => {
-    console.log('Submit function working');
-  }
+  // const handleSubmit = e => {
+  //   console.log('Submit function working');
+  // }
 
   /* JSX CODE */
   return(
@@ -72,18 +72,17 @@ const LoginScreen = () => {
               </Form.Label>
               <Form.Control size='lg' type='password' placeholder='Password' />
             </Form.Group>
-          </Form>
 
-          {/* Submit Button */}
-          <br />
-          <div className='text-center'>
-            <Button variant='primary w-60' 
-                    size='lg' 
-                    onClick={{}}
-                    className='px-5'>
-              Sign In
-            </Button>
-          </div>
+            {/* Submit Button */}
+            <br />
+            <div className='text-center'>
+              <Button variant='primary w-60' 
+                      size='lg' 
+                      className='px-5'>
+                Sign In
+              </Button>
+            </div>
+          </Form>
         </Card.Body>
 
         <Card.Footer className='bg-white text-center'>

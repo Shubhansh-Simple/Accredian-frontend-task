@@ -40,7 +40,7 @@ const AuthRadioBtn = ( {title, iconStyle} ) =>{
       </ButtonGroup>
       <br />
       <br />
-      <span class={`${iconStyle}`}>
+      <span className={`${iconStyle}`}>
         <MdLockOutline/>
       </span>
       <br />

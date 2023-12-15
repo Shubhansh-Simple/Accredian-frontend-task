@@ -3,6 +3,7 @@
  */
 
 // React
+import { useState } from 'react';
 
 // React-router
 import { Link } from 'react-router-dom';
@@ -19,20 +20,46 @@ import AuthRadioBtn from '../components/AuthRadioBtn';
 
 const SignupScreen = () => {
   /*
-   * Fields Required for login
-   * Username/Email and Password
+   * Fields Required for signup are
+   * Username and Email and Password and confirmPassword
    */
-  // const [ username, setUsername ] = useState('');
-  // const [ password, setPassword ] = useState('');
+  const [ username, setUsername ]               = useState('');
+  const [ email, setEmail ]                     = useState('');
+  const [ password, setPassword ]               = useState('');
+  const [ confirmPassword, setConfirmPassword ] = useState('');
 
-  // /* Detect Change In Username */
-  // const onUsernameChange = (e) => {}
+  /* Detect changes in Username */
+  const onUsernameChange = e => {
+    setUsername(e.target.value);
+  }
 
-  // /* Detect Change In Password */
-  // const onPasswordChange = (e) => {}
+  /* Detect changes in Email */
+  const onEmailChange = e => {
+    setEmail(e.target.value);
+  }
 
-  // /* Submitting form data to backend */
-  // const handleSubmit = e => {}
+  /* Detect changes in Password */
+  const onPasswordChange = e => {
+    setPassword(e.target.value);
+  }
+
+  /* Detect changes in Confirm Password */
+  const onConfirmPasswordChange = e => {
+    setConfirmPassword(e.target.value);
+  }
+
+  /* Submitting form data to backend */
+  const handleSubmit = e => {
+    e.preventDefault();
+    const submittedData = {
+      'username' : username,
+      'email' : email,
+      'password' : password,
+      'confirmPassword' : confirmPassword,
+    }
+    console.table('Submitted Data - ', submittedData );
+  }
+
 
   /* JSX CODE */
   return(
@@ -52,53 +79,70 @@ const SignupScreen = () => {
         { /* CARD BODY */ }
         <Card.Body className='bg-white'>
 
-          {/* Form */}
-          <Form>
-
+          {/* Signup Form */}
+          <Form onSubmit={handleSubmit}>
             {/* Username */}
-            <Form.Group className='mb-2 px-2 py-3' controlId='formBasicEmail'>
+            <Form.Group controlId='formUsername' className='mb-2 px-2 py-3'>
               <Form.Label>
                 <strong>Username</strong>
               </Form.Label>
-              <Form.Control size='lg' type='email' placeholder='Type your username' />
+              <Form.Control size='lg' 
+                            type='text' 
+                            value={username}
+                            onChange={onUsernameChange}
+                            placeholder='Type your username' />
             </Form.Group>
 
             {/* Email */}
-            <Form.Group className='mb-2 px-2 py-3' controlId='formBasicEmail'>
+            <Form.Group controlId='formEmail' className='mb-2 px-2 py-3'>
               <Form.Label>
                 <strong>Email address</strong>
               </Form.Label>
-              <Form.Control size='lg' type='email' placeholder='name@example.com' />
+              <Form.Control size='lg' 
+                            type='email' 
+                            value={email}
+                            onChange={onEmailChange}
+                            placeholder='Type your email' />
             </Form.Group>
 
             {/* Password */}
-            <Form.Group className='mb-3 px-2 py-3' controlId='formBasicPassword'>
+            <Form.Group controlId='formPassword' className='mb-3 px-2 py-3'>
               <Form.Label>
                 <strong>Password</strong>
               </Form.Label>
-              <Form.Control size='lg' type='password' placeholder='Password' />
+              <Form.Control size='lg' 
+                            type='password' 
+                            value={password}
+                            onChange={onPasswordChange}
+                            placeholder='Password' />
             </Form.Group>
 
             {/* Confirm Password */}
-            <Form.Group className='mb-3 px-2 py-3' controlId='formBasicPassword'>
+            <Form.Group controlId='formConfirmPassword' className='mb-3 px-2 py-3'>
               <Form.Label>
                 <strong>Confirm Password</strong>
               </Form.Label>
-              <Form.Control size='lg' type='password' placeholder='Retype-Password' />
+              <Form.Control size='lg' 
+                            type='password' 
+                            value={confirmPassword}
+                            onChange={onConfirmPasswordChange}
+                            placeholder='Retype password' />
+              <Form.Text>Make sure the both password matches</Form.Text>
             </Form.Group>
+            <br />
+
+            {/* Submit Button  */}
+            <div className='text-center'>
+              <Button type='submit'
+                      variant='danger w-70' 
+                      size='lg' 
+                      className='px-5'>
+                Create Account
+              </Button>
+            </div>
 
           </Form>
-
-          <br />
-          <div className='text-center'>
-            <Button variant='danger w-70' 
-                    size='lg' 
-                    onClick={{}}
-                    className='px-5'>
-              Create Account
-            </Button>
-          </div>
-        </Card.Body>
+       </Card.Body>
 
         <Card.Footer className='bg-white text-center'>
           <br />
