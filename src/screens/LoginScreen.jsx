@@ -13,6 +13,8 @@ import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 
 // React-icons
 
+// Components
+import AuthRadioBtn from '../components/AuthRadioBtn';
 
 const LoginScreen = () => {
 
@@ -37,6 +39,7 @@ const LoginScreen = () => {
   return(
     <div className='text-center'>
       <Container>
+        <AuthRadioBtn />
 
         {/* CARD */}
         <Card className='my-2 py-2 rounded bg-light px-4'>

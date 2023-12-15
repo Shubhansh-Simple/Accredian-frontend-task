@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 // React-bootstrap
 import { Container, Card, Button } from 'react-bootstrap';
 
+// Components
+import AuthRadioBtn from '../components/AuthRadioBtn';
 
 const SignupScreen = () => {
 
@@ -59,6 +61,7 @@ const SignupScreen = () => {
   return(
     <div className='text-center'>
       <Container>
+        <AuthRadioBtn />
 
         {/* CARD */}
         <Card className='my-2 py-2 rounded bg-light px-4'>
