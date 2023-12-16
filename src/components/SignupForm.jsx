@@ -10,6 +10,9 @@ import { useState } from 'react';
 // React-bootstrap
 import { Form,Button } from 'react-bootstrap'; 
 
+// Local
+import users              from '../sampleUsers';
+
 const SignupForm = () =>{
   /*
    * Fields Required for signup are
@@ -20,9 +23,44 @@ const SignupForm = () =>{
   const [ password, setPassword ]               = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
 
+  const [isUsernameValid, setIsUsernameValid] = useState(false);
+
   /* Detect changes in Username */
   const onUsernameChange = e => {
-    setUsername(e.target.value);
+
+    const usernameVal = e.target.value;
+    setUsername( usernameVal );
+
+    /* Cannot be empty */
+    if ( !usernameVal ){
+      console.log('Username is empty');
+      setIsUsernameValid(false);
+    }
+    /* No spaces allowed */
+    else if ( usernameVal.slice(-1) === ' ' ){
+      console.log('No spaces allowed');
+      setIsUsernameValid(false);
+    }
+    /* No spaces allowed */
+    else if ( usernameVal.length < 6 ){
+      console.log('Username is min length should be 6');
+      setIsUsernameValid(false);
+    }
+    /* No spaces allowed */
+    else if ( usernameVal.length > 12 ){
+      console.log('Username is max length should be 12');
+      setIsUsernameValid(false);
+    }
+
+    /* Username already exist */
+    else if ( users.find(user => user.username === usernameVal) ){
+      console.log('Username already exist');
+      setIsUsernameValid(false);
+    }
+    else{
+      console.log('Username, All test passed');
+      setIsUsernameValid(true);
+    }
   }
 
   /* Detect changes in Email */
