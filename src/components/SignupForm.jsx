@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { Form,Button } from 'react-bootstrap'; 
 
 // Local
+import { ErrMessageList } from './AlertMessage';
 import users              from '../sampleUsers';
 
 const SignupForm = () =>{
@@ -24,6 +25,17 @@ const SignupForm = () =>{
   const [ confirmPassword, setConfirmPassword ] = useState('');
 
   const [isUsernameValid, setIsUsernameValid] = useState(false);
+
+
+
+  const messageList = [
+   'Username must be atleast of 6 characters',
+   'Username must not be more than 12 characters',
+   'No spaces allowed',
+   'Only these special characters allowed',
+   'Username already exist',
+  ]
+
 
   /* Detect changes in Username */
   const onUsernameChange = e => {
@@ -103,6 +115,8 @@ const SignupForm = () =>{
                       value={username}
                       onChange={onUsernameChange}
                       placeholder='Type your username' />
+
+        <ErrMessageList msgList={messageList} />
       </Form.Group>
 
       {/* Email */}
