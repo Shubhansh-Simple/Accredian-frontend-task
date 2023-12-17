@@ -5,14 +5,15 @@
  */
 
 // React
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // React-bootstrap
 import { Form,Button } from 'react-bootstrap'; 
 
-// Local
-import { ErrMessageList } from './AlertMessage';
-import users              from '../sampleUsers';
+// Components
+import { ErrMessageList, SuccessMessage  } from './AlertMessage';
+import users                               from '../sampleUsers';
+import {usernameVL}                        from '../Validation';
 
 const SignupForm = () =>{
   /*
@@ -20,22 +21,130 @@ const SignupForm = () =>{
    * [ Username , Email , Password , confirmPassword ]
    */
   const [ username, setUsername ]                   = useState('');
+  const [ usernameErr, setUsernameErr ]             = useState('');
+  const [ isUsernameValid, setIsUsernameValid ]     = useState();
+  const [ isUsernameInValid, setIsUsernameInValid ] = useState();
+
+  /* Rest of the form field */
   const [ email, setEmail ]                     = useState('');
   const [ password, setPassword ]               = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
 
-  const [isUsernameValid, setIsUsernameValid] = useState(false);
-
+  /* To manage the state of submit buttion */
+  const [submitBtnDisable, setSubmitBtnDisable] = useState(false);
 
 
   const messageList = [
-   'Username must be atleast of 6 characters',
-   'Username must not be more than 12 characters',
-   'No spaces allowed',
-   'Only these special characters allowed',
-   'Username already exist',
-  ]
+      {
+        'visibility' : false,
+        'msg'        : 'Username must be atleast of 6 characters'
+      },
+      {
+        'visibility' : false,
+        'msg'        : 'Username must not be more than 12 characters' 
+      },
+      {
+        'visibility' : false,
+        'msg'        : 'No spaces allowed'                           
+      },
+      {
+        'visibility' : false,
+        'msg'        : 'Only these special characters allowed'        
+      },
+      {
+        'visibility' : false,
+        'msg'        : 'Username already exist'                       
+      },
+    ]
 
+  /* First thing to execute on page loads */
+  useEffect(() => {
+    setUsernameErr(messageList);
+  }, []);
+
+  /*
+   * Test username against below criterias
+   */
+  const testingUsername = ( testCase, value ) => {
+
+    let copyVal = [...usernameErr];
+
+    switch( testCase ){
+
+      /* TEST -  Mininum length */
+      case 0:
+        console.log('Min length error raised!');
+
+        if ( value.length < usernameVL.min_len ){
+          copyVal[testCase].visibility = true;
+          setUsernameErr(copyVal);
+
+          (!isUsernameInValid && setIsUsernameInValid(true));
+        }
+        else{
+          copyVal[testCase].visibility = false;
+          setUsernameErr(copyVal);
+        }
+        break;
+
+      /* TEST -  Maximum length */
+      case 1:
+        console.log('Max length error raised!');
+        if ( value.length > usernameVL.max_len ){
+          copyVal[testCase].visibility = true;
+          setUsernameErr(copyVal);
+          (!isUsernameInValid && setIsUsernameInValid(true));
+        }
+        else{
+          copyVal[testCase].visibility = false;
+          setUsernameErr(copyVal);
+        }
+        break;
+
+      /* TEST -  No spaces allowed */
+      case 2:
+        console.log('No space message error raised!');
+        for ( let i=0; i < value.length; i++ ){
+          if (value[i] === ' '){
+            copyVal[testCase].visibility = true;
+            setUsernameErr(copyVal);
+            (!isUsernameInValid && setIsUsernameInValid(true));
+            break;
+          }
+          else{
+            copyVal[testCase].visibility = false;
+            setUsernameErr(copyVal);
+          }
+        }
+        break;
+
+      /* TEST -  Only specific special char allowed */
+      case 3:
+        console.log('Only special char error raised!');
+        // setIsUsernameInValid(true);
+        break;
+
+      /* TEST -  Username already exist */
+      case 4:
+        if ( users.find(user => user.username === value) ){
+          console.log('Username already exist!');
+          copyVal[testCase].visibility = true;
+          setUsernameErr(copyVal);
+          (!isUsernameInValid && setIsUsernameInValid(true));
+        }
+        else{
+          copyVal[testCase].visibility = false;
+          setUsernameErr(copyVal);
+        }
+        break;
+
+      /* No error raised */
+      default:
+        console.log('DEFAULT CASE RAISED!');
+        break;
+    }
+    console.log('isUsernameInValid - ', isUsernameInValid );
+  }
 
   /* Detect changes in Username */
   const onUsernameChange = e => {
@@ -43,35 +152,9 @@ const SignupForm = () =>{
     const usernameVal = e.target.value;
     setUsername( usernameVal );
 
-    /* Cannot be empty */
-    if ( !usernameVal ){
-      console.log('Username is empty');
-      setIsUsernameValid(false);
-    }
-    /* No spaces allowed */
-    else if ( usernameVal.slice(-1) === ' ' ){
-      console.log('No spaces allowed');
-      setIsUsernameValid(false);
-    }
-    /* No spaces allowed */
-    else if ( usernameVal.length < 6 ){
-      console.log('Username is min length should be 6');
-      setIsUsernameValid(false);
-    }
-    /* No spaces allowed */
-    else if ( usernameVal.length > 12 ){
-      console.log('Username is max length should be 12');
-      setIsUsernameValid(false);
-    }
-
-    /* Username already exist */
-    else if ( users.find(user => user.username === usernameVal) ){
-      console.log('Username already exist');
-      setIsUsernameValid(false);
-    }
-    else{
-      console.log('Username, All test passed');
-      setIsUsernameValid(true);
+    /* Test input value against these validation test */
+    for (let i=0; i < usernameVL.total_validations; i++ ){
+      testingUsername(i, usernameVal);
     }
   }
 
@@ -120,11 +203,23 @@ const SignupForm = () =>{
         {/* Field Input */}
         <Form.Control size='lg' 
                       type='text' 
+                      isValid={isUsernameValid}
+                      isInvalid={isUsernameInValid}
                       value={username}
                       onChange={onUsernameChange}
+                      required 
                       placeholder='Type your username' />
 
-        <ErrMessageList msgList={messageList} />
+        {/* Show info messages on form invalid */}
+        <Form.Control.Feedback type='invalid'>
+          <ErrMessageList msgList={usernameErr} />
+        </Form.Control.Feedback>
+
+        {/* Show info messages on form valid */}
+        <Form.Control.Feedback type='valid'>
+          <SuccessMessage msg={usernameVL.success_msg} />
+        </Form.Control.Feedback>
+
       </Form.Group>
 
       {/* ------------------------------------------------------- */}
