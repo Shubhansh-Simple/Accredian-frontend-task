@@ -17,9 +17,9 @@ import users              from '../sampleUsers';
 const SignupForm = () =>{
   /*
    * Fields Required for signup are
-   * Username and Email and Password and confirmPassword
+   * [ Username , Email , Password , confirmPassword ]
    */
-  const [ username, setUsername ]               = useState('');
+  const [ username, setUsername ]                   = useState('');
   const [ email, setEmail ]                     = useState('');
   const [ password, setPassword ]               = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
@@ -90,26 +90,34 @@ const SignupForm = () =>{
     setConfirmPassword(e.target.value);
   }
 
+
   /* Submitting form data to backend */
-  const handleSubmit = e => {
+  const onFormSubmit = e => {
     e.preventDefault();
+
+    /* Prepare the data */
     const submittedData = {
-      'username' : username,
-      'email' : email,
-      'password' : password,
+      'username'        : username,
+      'email'           : email,
+      'password'        : password,
       'confirmPassword' : confirmPassword,
     }
     console.table('Submitted Data - ', submittedData );
   }
 
+  /* ----------JSX CODE---------- */
   return (
-    /* Signup Form */
-    <Form onSubmit={handleSubmit}>
-      {/* Username */}
-      <Form.Group controlId='formUsername' className='mb-2 px-2 py-3'>
-        <Form.Label>
-          <strong>Username</strong>
-        </Form.Label>
+
+    /* SIGNUP FORM */
+    <Form onSubmit={onFormSubmit}>
+
+      {/* USERNAME FIELD (1/4) */}
+      <Form.Group className='mb-2 px-2 py-3' controlId='formUsername'>
+
+        {/* Field Label */}
+        <Form.Label><strong>Username</strong></Form.Label>
+
+        {/* Field Input */}
         <Form.Control size='lg' 
                       type='text' 
                       value={username}
@@ -119,10 +127,12 @@ const SignupForm = () =>{
         <ErrMessageList msgList={messageList} />
       </Form.Group>
 
-      {/* Email */}
-      <Form.Group controlId='formEmail' className='mb-2 px-2 py-3'>
+      {/* ------------------------------------------------------- */}
+
+      {/* EMAIL FIELD (2/4) */}
+      <Form.Group className='mb-2 px-2 py-3' controlId='formEmail'>
         <Form.Label>
-          <strong>Email address</strong>
+          <strong>Email</strong>
         </Form.Label>
         <Form.Control size='lg' 
                       type='email' 
@@ -131,8 +141,10 @@ const SignupForm = () =>{
                       placeholder='Type your email' />
       </Form.Group>
 
-      {/* Password */}
-      <Form.Group controlId='formPassword' className='mb-3 px-2 py-3'>
+      {/* ------------------------------------------------------- */}
+
+      {/* PASSWORD FIELD (3/4) */}
+      <Form.Group className='mb-2 px-2 py-3' controlId='formPassword'>
         <Form.Label>
           <strong>Password</strong>
         </Form.Label>
@@ -143,8 +155,11 @@ const SignupForm = () =>{
                       placeholder='Password' />
       </Form.Group>
 
-      {/* Confirm Password */}
-      <Form.Group controlId='formConfirmPassword' className='mb-3 px-2 py-3'>
+
+      {/* ------------------------------------------------------- */}
+
+      {/* CONFIRM-PASSWORD FIELD (4/4) */}
+      <Form.Group className='mb-2 px-2 py-3' controlId='formConfirmPassword'>
         <Form.Label>
           <strong>Confirm Password</strong>
         </Form.Label>
@@ -157,19 +172,25 @@ const SignupForm = () =>{
       </Form.Group>
       <br />
 
-      {/* Submit Button  */}
+      {/* ------------------------------------------------------- */}
+
+      {/* SUBMIT BUTTON  */}
       <div className='text-center'>
         <Button type='submit'
                 variant='danger w-70' 
                 size='lg' 
+                disabled={submitBtnDisable}
                 className='px-5'>
           Create Account
         </Button>
       </div>
 
     </Form>
+    /* SIGNUP FORM ENDS */
   );
+  /* -------JSX CODE ENDS----- */
 }
+/* -------FUNC. ENDS------- */
 
 export default SignupForm;
 
