@@ -12,7 +12,13 @@ code {
     monospace;
 }
 
-/* Lock icons for login/signup page */
+/* List error messages in form input field */
+ul{
+  list-style : none;
+  padding-left : 0.5rem;
+}
+
+/* Styling Lock icons for login/signup page */
 .iconLogin {
   border-radius: 50%;
   background-color: #0275d8;
