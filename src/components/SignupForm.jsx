@@ -126,9 +126,12 @@ const SignupForm = () =>{
     if ( copyVal[id].visibility ){
       console.log('Err Raised  - ', id);
       setUsernameValid(false);
+      return 0;
     }
-    else
+    else{
       console.log('Case Solved - ',id);
+      return 1;
+    }
     
   } /* TestingUSERNAME FUNC. ENDS */
 
@@ -145,12 +148,17 @@ const SignupForm = () =>{
     if ( usernameInputLen === 0 ){
       console.log('Zero length error raised!');
       setUsernameValid(null);
-      /* What about the message visibility in this state ? */
     }
+
     /* TEST - Non-Empty Input */
     else{
+      let casePass = 0;
+
       for (let i=0; i < usernameVL.total_validations; i++ )
-        testingUsername( i, usernameInput, usernameInputLen );
+        casePass += testingUsername(i,usernameInput,usernameInputLen);
+      
+      if (casePass === usernameVL.total_validations)
+        setUsernameValid(true);
 
       console.log(`Value - ${usernameInput}---------------`);
     }
