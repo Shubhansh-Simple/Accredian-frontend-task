@@ -47,7 +47,7 @@ const SignupForm = () =>{
       },
       {
         'visibility' : false,
-        'msg'        : 'Only these special characters allowed'        
+        'msg'        : 'Special character "@" not allowed in username'
       },
       {
         'visibility' : false,
@@ -65,100 +65,73 @@ const SignupForm = () =>{
   /*
    * Test input value against below criterias
    */
-  const testingUsername = ( testCase, value, length ) => {
+  const testingUsername = ( id, value, length ) => {
 
     let copyVal = [...usernameErr];
 
-    switch( testCase ){
+    switch (id) {
 
       /* TEST -  Mininum length */
       case 0:
-        if ( length < usernameVL.min_len ){
-          copyVal[testCase].visibility = true;
-          setUsernameErr(copyVal);
-          console.log('Case 0 - Min length error raised!');
-
-          // ( usernameValid && setUsernameValid(false) );
-          setUsernameValid(false);
-        }
-        else{
-          console.log('Case 0 solved!')
-          copyVal[testCase].visibility = false;
-          setUsernameErr(copyVal);
-        }
+        copyVal[id].visibility = length < usernameVL.min_len;
         break;
 
       /* TEST -  Maximum length */
       case 1:
-        if ( length > usernameVL.max_len ){
-          console.log('Case 1 - Max length error raised!');
-
-          copyVal[testCase].visibility = true;
-          setUsernameErr(copyVal);
-          // ( usernameValid && setUsernameValid(false) );
-          setUsernameValid(false);
-        }
-        else{
-          console.log('Case 1 solved!')
-
-          copyVal[testCase].visibility = false;
-          setUsernameErr(copyVal);
-        }
+        copyVal[id].visibility = length > usernameVL.max_len;
         break;
 
       /* TEST -  No spaces allowed */
       case 2:
         let isSpace = false;
-        for ( let i=0; i < length; i++ ){
-          if (value[i] === ' '){
+        for (let i = 0; i < length; i++) {
+          if (value[i] === ' ') {
             isSpace = true;
             break;
           }
         }
-        if ( isSpace ){
-          console.log('Case 2 - No space message error raised!');
-
-          copyVal[testCase].visibility = true;
-          // ( usernameValid && setUsernameValid(false) );
-          setUsernameValid(false);
-        }
-        else{
-          console.log('Case 2 solved!')
-
-          copyVal[testCase].visibility = false;
-        }
-        setUsernameErr(copyVal);
+        copyVal[id].visibility = isSpace;
         break;
 
-      /* TEST -  Only specific special char allowed */
+      /* TEST -  @ special char not allowed */
       case 3:
-        // console.log('Case 3 - Only special char error raised!');
-        // setIsUsernameInValid(true);
+        let isSpecialChar = false;
+        for (let i = 0; i < length; i++) {
+          if (value[i] === '@') {
+            isSpecialChar = true;
+            break;
+          }
+        }
+        copyVal[id].visibility = isSpecialChar;
         break;
 
       /* TEST -  Username already exist */
       case 4:
-        if ( users.find(user => user.username === value) ){
-          console.log('Case 4 - Username already exist!');
-
-          copyVal[testCase].visibility = true;
-          setUsernameErr(copyVal);
-          // ( usernameValid && setUsernameValid(false) );
-          setUsernameValid(false);
-        }
-        else{
-          console.log('Case 4 solved!')
-
-          copyVal[testCase].visibility = false;
-          setUsernameErr(copyVal);
-        }
+        let isExist = users.some(user=>user.username===value);
+        copyVal[id].visibility = isExist;
         break;
 
       /* No error raised */
       default: break;
     }
-    // console.log('Outside of switch case statement ');
-  }
+
+    /* 
+     * SETING THE FOLLOWING STATE
+     *  Username-err-msg-visibility
+     *  Username-valid-invalid
+     */
+    // console.log(copyVal);
+    setUsernameErr(copyVal);
+
+    if ( copyVal[id].visibility ){
+      console.log('Err Raised  - ', id);
+      setUsernameValid(false);
+    }
+    else
+      console.log('Case Solved - ',id);
+    
+  } /* TestingUSERNAME FUNC. ENDS */
+
 
   /* Detect changes in Username */
   const onUsernameChange = e => {
@@ -179,7 +152,7 @@ const SignupForm = () =>{
       for (let i=0; i < usernameVL.total_validations; i++ )
         testingUsername( i, usernameInput, usernameInputLen );
 
-      console.log(`Value - ${usernameInputLen}---------------`);
+      console.log(`Value - ${usernameInput}---------------`);
     }
   }
 
