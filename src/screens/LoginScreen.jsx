@@ -2,11 +2,6 @@
  * Login Page of our application
  */
 
-// React
-
-// React-router
-import { Link } from 'react-router-dom';
-
 // React-Bootstrap
 import { Form, 
   Container,
@@ -15,7 +10,8 @@ import { Form,
 } from 'react-bootstrap'; 
 
 // Components
-import AuthRadioBtn from '../components/AuthRadioBtn';
+import AuthSwitchHeader from '../components/AuthHeader';
+import AuthSwitchFooter from '../components/AuthFooter';
 
 const LoginScreen = () => {
   /*
@@ -48,7 +44,7 @@ const LoginScreen = () => {
 
         {/* CARD HEADER */}
         <Card.Header className='bg-white text-center'>
-          <AuthRadioBtn title={'Sign In'} iconStyle={'iconLogin'}/>
+          <AuthSwitchHeader title={'Sign In'} iconStyle={'iconLogin'}/>
         </Card.Header>
 
         { /* CARD BODY */ }
@@ -85,14 +81,12 @@ const LoginScreen = () => {
           </Form>
         </Card.Body>
 
+        {/* CARD FOOTER */}
         <Card.Footer className='bg-white text-center'>
-          <br />
-          <br />
-          <div>
-            <b>Not a member ? <span> </span>
-              <Link to='/signup'>Register</Link>
-            </b>
-          </div>
+          <AuthSwitchFooter 
+            msg={'Not a member ?'} 
+            title={'Signup'} 
+            navigate={'signup'} />
         </Card.Footer>
       </Card>
       <br />

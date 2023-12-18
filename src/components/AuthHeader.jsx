@@ -1,5 +1,5 @@
 /*
- * Radio button to switch b/w login and signup page
+ * Card Header of Signup/Login Form
  */
 
 // React-router
@@ -12,7 +12,10 @@ import { MdLockOutline } from "react-icons/md";
 import ToggleButton    from 'react-bootstrap/ToggleButton';
 import ButtonGroup     from 'react-bootstrap/ButtonGroup';
 
-const AuthRadioBtn = ( {title, iconStyle} ) =>{
+/*
+ * Radio button to switch b/w login and signup page
+ */
+const AuthSwitchHeader = ( {title, iconStyle} ) =>{
   return (
     <>
       <span className={`${iconStyle}`}>
@@ -22,23 +25,23 @@ const AuthRadioBtn = ( {title, iconStyle} ) =>{
       <br />
       <h3><strong>{title}</strong></h3>
       <br />
-      <ButtonGroup>
+
+      <ButtonGroup style={{ width:'100%' }}>
 
         {/* Navigate to Login Form */}
         <LinkContainer to='/login'>
-          <ToggleButton className='px-5' 
+          <ToggleButton className='' 
                         type='radio' 
-                        variant='outline-dark w-40' 
+                        variant='outline-dark' 
                         size='lg'>
             Login
           </ToggleButton>
         </LinkContainer>
-
         {/* Navigate to Signup Form */}
         <LinkContainer to='/signup'>
-          <ToggleButton className='px-5'
+          <ToggleButton className=''
                         type='radio' 
-                        variant='outline-dark w-40' 
+                        variant='outline-dark' 
                         size='lg'>
             Sign Up
           </ToggleButton>
@@ -51,5 +54,5 @@ const AuthRadioBtn = ( {title, iconStyle} ) =>{
   );
 }
 
-export default AuthRadioBtn;
+export default AuthSwitchHeader;
 
