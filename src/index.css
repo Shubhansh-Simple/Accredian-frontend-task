@@ -12,26 +12,24 @@ code {
     monospace;
 }
 
-/* List error messages in form input field */
-ul{
-  list-style : none;
-  padding-left : 0.5rem;
+/* 
+ * Styling Lock icons for 
+ * login/signup page 
+ */
+.iconLogin {
+  color            : white;
+  padding          : 10px;
+  font-size        : 25px;
+  border-radius    : 50%;
+  background-color : #0275d8;
 }
 
-/* Styling Lock icons for login/signup page */
-.iconLogin {
-  border-radius: 50%;
-  background-color: #0275d8;
-  color : white;
-  padding: 10px;
-  font-size: 25px;
-}
 .iconSignup {
-  border-radius: 50%;
-  background-color: #dc3545;
-  color : white;
-  padding: 10px;
-  font-size: 25px;
+  color            : white;
+  padding          : 10px;
+  font-size        : 25px;
+  border-radius    : 50%;
+  background-color : #dc3545;
 }
 
 

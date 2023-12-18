@@ -20,20 +20,20 @@ function SuccessMessage( {msg='Success'} ){
 }
 
 /*
- * List the error messages with icons
+ * Show error message with Cancel icon and colors
  */
-function ErrMessageItem( {msg='Fail'} ){
+function ErrMessage( {msg='Fail'} ){
   return (
-    <li>
+    <div>
       <MdCancel />&nbsp;&nbsp;
       <b>{msg}</b>
-    </li>
+    </div>
   );
 }
 
 /*
  * Iterate through entire message list if it's exist
- * also showing message based on each message's visiblity 
+ * also showing message based on it's visiblity 
  */
 function ErrMessageList( {msgList=[]} ){
   return (
@@ -41,21 +41,21 @@ function ErrMessageList( {msgList=[]} ){
       {
         msgList 
           &&
-        <ul className='text-danger'>
+        <div>
           {
             msgList
               .filter( msg => msg.visibility === true )
               .map( (msg,index) =>{
-                  return <ErrMessageItem key={index} msg={msg.msg} />
+                  return <ErrMessage key={index} msg={msg.msg} />
               })
           }
-        </ul>
+        </div>
       }
     </>
   );
 }
 
-export { SuccessMessage, ErrMessageItem , ErrMessageList };
+export { SuccessMessage, ErrMessage, ErrMessageList };
 
 
 
