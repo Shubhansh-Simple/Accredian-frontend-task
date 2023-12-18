@@ -1,7 +1,5 @@
 /*
- * Sign Up Form
- * Put the re-render part into separate file
- * to increase speed
+ * Card Body of Signup/Login Screen
  */
 
 // React
@@ -15,15 +13,15 @@ import { ErrMessageList, SuccessMessage  } from './AlertMessage';
 import users                               from '../sampleUsers';
 import {usernameVL}                        from '../Validation';
 
+/*
+ * Signup Form
+ * Form Fields - Username, Email, Password, Confirm Password
+ */
 const SignupForm = () =>{
-  /*
-   * Fields Required for signup are
-   * [ Username , Email , Password , confirmPassword ]
-   */
-  const [ username, setUsername ]                   = useState('');
-  const [ usernameErr, setUsernameErr ]             = useState('');
-  const [ isUsernameValid, setIsUsernameValid ]     = useState();
-  const [ isUsernameInValid, setIsUsernameInValid ] = useState();
+
+  const [ username, setUsername ]               = useState('');
+  const [ usernameErr, setUsernameErr ]         = useState('');
+  const [usernameValid, setUsernameValid]       = useState(null);
 
   /* Rest of the form field */
   const [ email, setEmail ]                     = useState('');
@@ -60,12 +58,14 @@ const SignupForm = () =>{
   /* First thing to execute on page loads */
   useEffect(() => {
     setUsernameErr(messageList);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*
-   * Test username against below criterias
+   * Test input value against below criterias
    */
-  const testingUsername = ( testCase, value ) => {
+  const testingUsername = ( testCase, value, length ) => {
 
     let copyVal = [...usernameErr];
 
@@ -73,15 +73,16 @@ const SignupForm = () =>{
 
       /* TEST -  Mininum length */
       case 0:
-        console.log('Min length error raised!');
-
-        if ( value.length < usernameVL.min_len ){
+        if ( length < usernameVL.min_len ){
           copyVal[testCase].visibility = true;
           setUsernameErr(copyVal);
+          console.log('Case 0 - Min length error raised!');
 
-          (!isUsernameInValid && setIsUsernameInValid(true));
+          // ( usernameValid && setUsernameValid(false) );
+          setUsernameValid(false);
         }
         else{
+          console.log('Case 0 solved!')
           copyVal[testCase].visibility = false;
           setUsernameErr(copyVal);
         }
@@ -89,13 +90,17 @@ const SignupForm = () =>{
 
       /* TEST -  Maximum length */
       case 1:
-        console.log('Max length error raised!');
-        if ( value.length > usernameVL.max_len ){
+        if ( length > usernameVL.max_len ){
+          console.log('Case 1 - Max length error raised!');
+
           copyVal[testCase].visibility = true;
           setUsernameErr(copyVal);
-          (!isUsernameInValid && setIsUsernameInValid(true));
+          // ( usernameValid && setUsernameValid(false) );
+          setUsernameValid(false);
         }
         else{
+          console.log('Case 1 solved!')
+
           copyVal[testCase].visibility = false;
           setUsernameErr(copyVal);
         }
@@ -103,58 +108,78 @@ const SignupForm = () =>{
 
       /* TEST -  No spaces allowed */
       case 2:
-        console.log('No space message error raised!');
-        for ( let i=0; i < value.length; i++ ){
+        let isSpace = false;
+        for ( let i=0; i < length; i++ ){
           if (value[i] === ' '){
-            copyVal[testCase].visibility = true;
-            setUsernameErr(copyVal);
-            (!isUsernameInValid && setIsUsernameInValid(true));
+            isSpace = true;
             break;
           }
-          else{
-            copyVal[testCase].visibility = false;
-            setUsernameErr(copyVal);
-          }
         }
+        if ( isSpace ){
+          console.log('Case 2 - No space message error raised!');
+
+          copyVal[testCase].visibility = true;
+          // ( usernameValid && setUsernameValid(false) );
+          setUsernameValid(false);
+        }
+        else{
+          console.log('Case 2 solved!')
+
+          copyVal[testCase].visibility = false;
+        }
+        setUsernameErr(copyVal);
         break;
 
       /* TEST -  Only specific special char allowed */
       case 3:
-        console.log('Only special char error raised!');
+        // console.log('Case 3 - Only special char error raised!');
         // setIsUsernameInValid(true);
         break;
 
       /* TEST -  Username already exist */
       case 4:
         if ( users.find(user => user.username === value) ){
-          console.log('Username already exist!');
+          console.log('Case 4 - Username already exist!');
+
           copyVal[testCase].visibility = true;
           setUsernameErr(copyVal);
-          (!isUsernameInValid && setIsUsernameInValid(true));
+          // ( usernameValid && setUsernameValid(false) );
+          setUsernameValid(false);
         }
         else{
+          console.log('Case 4 solved!')
+
           copyVal[testCase].visibility = false;
           setUsernameErr(copyVal);
         }
         break;
 
       /* No error raised */
-      default:
-        console.log('DEFAULT CASE RAISED!');
-        break;
+      default: break;
     }
-    console.log('isUsernameInValid - ', isUsernameInValid );
+    // console.log('Outside of switch case statement ');
   }
 
   /* Detect changes in Username */
   const onUsernameChange = e => {
 
-    const usernameVal = e.target.value;
-    setUsername( usernameVal );
+    // Current value of input field
+    const usernameInput    = e.target.value;
+    const usernameInputLen = usernameInput.length
+    setUsername( usernameInput );
 
-    /* Test input value against these validation test */
-    for (let i=0; i < usernameVL.total_validations; i++ ){
-      testingUsername(i, usernameVal);
+    /* TEST - Empty Input */
+    if ( usernameInputLen === 0 ){
+      console.log('Zero length error raised!');
+      setUsernameValid(null);
+      /* What about the message visibility in this state ? */
+    }
+    /* TEST - Non-Empty Input */
+    else{
+      for (let i=0; i < usernameVL.total_validations; i++ )
+        testingUsername( i, usernameInput, usernameInputLen );
+
+      console.log(`Value - ${usernameInputLen}---------------`);
     }
   }
 
@@ -172,7 +197,6 @@ const SignupForm = () =>{
   const onConfirmPasswordChange = e => {
     setConfirmPassword(e.target.value);
   }
-
 
   /* Submitting form data to backend */
   const onFormSubmit = e => {
@@ -203,19 +227,20 @@ const SignupForm = () =>{
         {/* Field Input */}
         <Form.Control size='lg' 
                       type='text' 
-                      isValid={isUsernameValid}
-                      isInvalid={isUsernameInValid}
+                      isValid={usernameValid}
+                      isInvalid={ usernameValid !== null 
+                          && !usernameValid }
                       value={username}
                       onChange={onUsernameChange}
                       required 
                       placeholder='Type your username' />
 
-        {/* Show info messages on form invalid */}
+        {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
           <ErrMessageList msgList={usernameErr} />
         </Form.Control.Feedback>
 
-        {/* Show info messages on form valid */}
+        {/* Show feedback msg on form valid */}
         <Form.Control.Feedback type='valid'>
           <SuccessMessage msg={usernameVL.success_msg} />
         </Form.Control.Feedback>
@@ -263,7 +288,6 @@ const SignupForm = () =>{
                       value={confirmPassword}
                       onChange={onConfirmPasswordChange}
                       placeholder='Retype password' />
-        <Form.Text>Make sure the both password matches</Form.Text>
       </Form.Group>
       <br />
 

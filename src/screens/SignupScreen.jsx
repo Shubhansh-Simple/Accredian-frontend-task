@@ -13,12 +13,12 @@ import SignupForm       from '../components/SignupForm';
 
 const SignupScreen = () => {
   return(
-    <Container className='px-5'>
+    <Container className='px-4'>
       <br />
       <br />
 
       {/* CARD */}
-      <Card className='shadow-lg p-3 mb-5 bg-white rounded py-2 rounded bg-white'>
+      <Card className='shadow-lg p-1 mb-5 bg-white py-4 bg-white'>
 
         {/* CARD HEADER */}
         <Card.Header className='bg-white text-center'>
