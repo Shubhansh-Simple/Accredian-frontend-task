@@ -13,14 +13,17 @@ import { ErrMessage,
          SuccessMessage,
          ErrMessageList  } from './Alert';
 
-// Field Validation
-import { usernameLimit, 
-         confirmLimit }    from '../validation/AlertLimit';
-
+// Local-Alert Components
 import { usernameAlertMsg,
+         passwordAlertMsg,
          confirmAlertMsg } from '../validation/AlertMessage';
 
-import { usernameTesting } from '../validation/Testing';
+// Field Validation Limits
+import { usernameLimit, 
+         passwordLimit,
+         confirmLimit }    from '../validation/AlertLimit';
+
+import { passwordTesting, usernameTesting } from '../validation/Testing';
 
 /*
  * Signup Form
@@ -28,14 +31,18 @@ import { usernameTesting } from '../validation/Testing';
  */
 const SignupForm = () =>{
 
-  /* USERNAME STATE */
+  /* USERNAME STATES */
   const [ username, setUsername ]         = useState('');
   const [ usernameErr, setUsernameErr ]   = useState('');
   const [usernameValid, setUsernameValid] = useState(null);
 
-  /* Rest of the form field */
+  /* EMAIL STATES */
   const [ email, setEmail ]               = useState('');
-  const [ password, setPassword ]         = useState('');
+
+  /* PASSWORD STATES */
+  const [ password,    setPassword ]      = useState('');
+  const [ passwordErr, setPasswordErr ]   = useState('');
+  const [passwordValid, setPasswordValid] = useState(null);
 
   /* CONFIRM PASSWORD STATE */
   const [ confirm, setConfirm ]           = useState('');
@@ -44,9 +51,10 @@ const SignupForm = () =>{
   /* To manage the state of submit buttion */
   // const [submitBtnDisable, setSubmitBtnDisable] = useState(false);
 
-  /* First thing to execute on page loads */
+  /* OnpageLoad, set default error msg */
   useEffect(() => {
     setUsernameErr(usernameAlertMsg);
+    setPasswordErr(passwordAlertMsg);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,10 +75,9 @@ const SignupForm = () =>{
     /* TEST - Non-Empty Input */
     else{
       let testPass = 0;
-
       /* 
-       * Testing username input against 
-       * given criteria on each key stroke 
+       * Testing user inputs on each key stroke 
+       * for username
        */
       for (let i=0; i < usernameLimit.total_validations; i++ ){
         let copyErrState  = [...usernameErr];
@@ -78,9 +85,9 @@ const SignupForm = () =>{
          * Verify current value against test cases and 
          * adjust error message visibility accordingly
          */
-        copyErrState      = usernameTesting( i,copyErrState,
-                                               usernameInput,
-                                               usernameInputLen )
+        copyErrState = usernameTesting(i, copyErrState,
+                                          usernameInput,
+                                          usernameInputLen);
         setUsernameErr(copyErrState);
 
         /* 
@@ -96,7 +103,7 @@ const SignupForm = () =>{
                 :
           testPass += 1
         )
-      }
+      } // LOOPS ENDS
 
       /* Username field passes all test cases*/
       if (testPass === usernameLimit.total_validations)
@@ -113,9 +120,55 @@ const SignupForm = () =>{
   const onPasswordChange = e => {
 
     // Current value of input field
-    const passwordInput = e.target.value;
+    const passwordInput    = e.target.value;
+    const passwordInputLen = passwordInput.length
+
+    // Set state as current value
     setPassword( passwordInput );
+
+    /* TEST - Empty Input */
+    if ( passwordInputLen === 0 )
+      setPasswordValid(null);
+
+    /* TEST - Non-Empty Input */
+    else{
+      let testPass = 0;
+      /* 
+       * Testing user inputs on each key stroke 
+       * for password 
+       */
+      for (let i = 0; i < passwordLimit.total_validations; i++) {
+        let copyErrState  = [...passwordErr];
+        /* 
+         * Verify current value against test cases and 
+         * adjust error message visibility accordingly
+         */
+        copyErrState = passwordTesting( i, copyErrState, 
+                                           passwordInput,
+                                           passwordInputLen );
+        setPasswordErr(copyErrState);
+
+        /* 
+         * If visibility of any err message is true  
+         * means error is raised & 
+         * field is invalid otherwise
+         * that testcase pass and counted
+         */
+        (
+          copyErrState[i].visibility
+                ?
+          setPasswordValid(false)
+                :
+          testPass += 1
+        )
+      } // LOOPS ENDS
+      //
+      /* Password field passes all test cases*/
+      if (testPass === passwordLimit.total_validations)
+        setPasswordValid(true);
+    }
   }
+
 
   /* Detect changes in CONFIRM PASSWORD */
   const onConfirmChange = e => {
@@ -209,20 +262,40 @@ const SignupForm = () =>{
 
       {/* PASSWORD FIELD (3/4) */}
       <Form.Group className='mb-2 px-2 py-3' controlId='formPassword'>
+
+        {/* Field Label */}
         <Form.Label>
           <strong>Password</strong>
         </Form.Label>
-        <Form.Control size='lg' 
-                      type='password' 
+
+        {/* Field Input */}
+        <Form.Control required 
+                      size='lg' 
+                      type='text' 
                       value={password}
                       onChange={onPasswordChange}
+                      isValid={passwordValid}
+                      isInvalid={ passwordValid !== null 
+                                    && 
+                                 !passwordValid }
                       placeholder='Password' />
+
+        {/* Show feedback msg on form invalid */}
+        <Form.Control.Feedback type='invalid'>
+          <ErrMessageList msgList={passwordErr} />
+        </Form.Control.Feedback>
+
+        {/* Show feedback msg on form valid */}
+        <Form.Control.Feedback type='valid'>
+          <SuccessMessage msg={passwordLimit.success_msg} />
+        </Form.Control.Feedback>
+
       </Form.Group>
 
       {/* ------------------------------------------------------- */}
 
       {/* CONFIRM-PASSWORD FIELD (4/4) */}
-      <Form.Group className='mb-2 px-2 py-3' controlId='formConfirmPassword'>
+      <Form.Group className='mb-2 px-2 py-3' controlId='formConfirm'>
 
         {/* Field Label */}
         <Form.Label>
@@ -239,7 +312,7 @@ const SignupForm = () =>{
                                   !confirmValid }
                       value={confirm}
                       onChange={onConfirmChange}
-                      disabled={!password.length>0}
+                      disabled={!passwordValid}
                       placeholder='Retype password' />
 
         {/* Show feedback msg on form invalid */}

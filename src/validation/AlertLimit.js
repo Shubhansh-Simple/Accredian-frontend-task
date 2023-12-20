@@ -2,6 +2,58 @@
  * Form field validation criteria
  */
 
+/*
+ * Ascii ranges of lowercase, uppercase, 
+ * digits and special character
+ */
+const ascii_range = {
+  'lower' : {
+    'start' : 97,
+    'end'   : 122,
+  },
+  'upper' : {
+    'start' : 65,
+    'end'   : 90,
+  },
+  'digit' : {
+    'start' : 48,
+    'end'   : 57,
+  },
+
+  'specialCharacter' : {
+    "'" : true,
+    "!" : true,
+    "@" : true,
+    "#" : true,
+    "$" : true,
+    "%" : true,
+    "^" : true,
+    "&" : true,
+    "*" : true,
+    "(" : true,
+    ")" : true,
+    "_" : true,
+    "+" : true,
+    "-" : true,
+    "=" : true,
+    "{" : true,
+    "}" : true,
+    "[" : true,
+    "]" : true,
+    "|" : true,
+    ";" : true,
+    ":" : true,
+    "," : true,
+    "." : true,
+    "/" : true,
+    "?" : true,
+    "<" : true,
+    ">" : true,
+    "~" : true,
+    "`" : true,
+    "'" : true,
+  }
+}
 
 /*
  * Username Field
@@ -29,7 +81,7 @@ const passwordLimit = {
   'max_len'            : 15,
   'allow_special_char' : '~`!@#$%^&*()-_+=',
   'success_msg'        : 'Password is taken',
-  'total_validations'  : 5,
+  'total_validations'  : 6,
 }
 
 /*
@@ -40,10 +92,11 @@ const confirmLimit = {
 }
 
 
-export {usernameLimit, 
-  emailLimit,
-  passwordLimit,
-  confirmLimit
-} ;
+export {  usernameLimit, 
+          emailLimit,
+          passwordLimit,
+          confirmLimit,
+          ascii_range
+       };
 
 

@@ -4,36 +4,32 @@
  */
 
 // Field Validation
-import { usernameLimit }    from '../validation/AlertLimit';
+import {
+  ascii_range,   
+  usernameLimit,
+  passwordLimit  }   from '../validation/AlertLimit';
+
+import {
+  hasCharacter, 
+  hasAlphaDigit, 
+  hasSpecialCharacter } from './StringOperations';
+
 
 // Data
-import users                from '../sampleUsers';
-
-/* 
- * HELPING FUNC.
- * Check weather char exist in given string 
- * return true/false
- */
-function hasCharacter( char, string, length ){
-  for (let i = 0; i < length; i++) {
-    if ( string[i] === char) 
-      return true;
-  }
-  return false;
-}
+import users from '../sampleUsers';
 
 /*
- * Return updated value for UserErrMsg state
- * after validating the given value 
- * against all test cases
+ * TESTING - USERNAME
+ * against below test cases
+ * Return - Updated ErrMsgState value for updating state
  */
 const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
   /* TEST Criteria
-   *   1.) Mininum length 
-   *   2.) Maximum length 
-   *   3.) No spaces allowed 
-   *   4.) Some special char not allowed 
-   *   5.) Username already exist 
+   *   CASE 0 - Mininum length 
+   *   CASE 1 - Maximum length 
+   *   CASE 2 - No spaces allowed 
+   *   CASE 3 - Some special char not allowed 
+   *   CASE 4 - Username already exist 
    */
   switch (id) {
 
@@ -55,9 +51,10 @@ const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
 
     /* TEST -  Some special char not allowed */
     case 3:
+      // Not allowed - @
       let bool = hasCharacter( usernameLimit.not_allow_char,
-                               inputValue, 
-                               inputLength );
+                                       inputValue, 
+                                       inputLength );
       usernameErrState[id].visibility = bool;
       break;
 
@@ -68,26 +65,89 @@ const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
       break;
 
     /* DEFAULT */
-    default: ;
+    default:
+      console.log('DEFAULT-CASE RAISED!');
+      break;
 
   } // SWITCH-CASE-ENDS
 
   return usernameErrState;
 } // usernameTesting() ENDS
 
+/*--------------------------------------------------*/
+
 /*
- * Testing password input value 
- * against below criteria
+ * TESTING - PASSWORD
+ * against below test cases
+ * Return - Updated ErrMsgState value for updating state
  */
-const passwordTesting = ()=> {
+const passwordTesting = ( id, 
+                          passwordErrState, 
+                          inputValue, 
+                          inputLength )=> {
   /* TEST Criteria
-   *   1.) Mininum length 
-   *   2.) Maximum length 
-   *   3.) Have at least one lower case letter 
-   *   4.) Have at least one upper case letter 
-   *   5.) Have at least one digit 
-   *   6.) Have at least one special character 
+   *   CASE 0 - Mininum length 
+   *   CASE 1 - Maximum length 
+   *   CASE 2 - Have at least one lower case letter 
+   *   CASE 3 - Have at least one upper case letter 
+   *   CASE 4 - Have at least one digit 
+   *   CASE 5 - Have at least one special character 
    */
-} 
+  var check;
+
+  switch (id) {
+
+    /* TEST -  Mininum length */
+    case 0:
+      passwordErrState[id].visibility = inputLength < passwordLimit.min_len;
+      break;
+
+    /* TEST -  Maximum length */
+    case 1:
+      passwordErrState[id].visibility = inputLength > passwordLimit.max_len;
+      break;
+
+    /* TEST -  Atleast one lower character */
+    case 2:
+      check     = !hasAlphaDigit( inputValue, 
+                                  inputLength,
+                                  ascii_range.lower.start,
+                                  ascii_range.lower.end );
+      passwordErrState[id].visibility = check;
+      break;
+
+    /* TEST -  Atleast one upper character */
+    case 3:
+      check     = !hasAlphaDigit( inputValue, 
+                                  inputLength,
+                                  ascii_range.upper.start,
+                                  ascii_range.upper.end );
+      passwordErrState[id].visibility = check;
+      break;
+
+    /* TEST -  Atleast one digit */
+    case 4:
+      check     = !hasAlphaDigit( inputValue, 
+                                  inputLength,
+                                  ascii_range.digit.start,
+                                  ascii_range.digit.end );
+      passwordErrState[id].visibility = check;
+      break;
+
+    /* TEST -  Atleast one special character */
+    case 5:
+      check     = !hasSpecialCharacter( inputValue,inputLength );
+      passwordErrState[id].visibility = check;
+      break;
+
+    /* DEFAULT */
+    default: 
+      console.log('DEFAULT-CASE RAISED!'); 
+      break;
+
+  } // SWITCH-CASE-ENDS
+
+  return passwordErrState;
+} // passwordTesting() ENDS
 
 export {usernameTesting, passwordTesting};
