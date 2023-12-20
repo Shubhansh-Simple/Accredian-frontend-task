@@ -11,7 +11,6 @@ import { useState, useEffect } from 'react';
 
 // React-bootstrap
 import { Form,Button }     from 'react-bootstrap'; 
-import { InputGroup }      from 'react-bootstrap';
 
 /* 
  * LOCAL-MODULES 
@@ -19,8 +18,7 @@ import { InputGroup }      from 'react-bootstrap';
 // Components
 import { ErrMessage,
          SuccessMessage,
-         MessageIterate,
-         ErrMessageList  } from './Alert';
+         MessageIterate  } from './Alert';
 
 // Alert Components
 import { usernameAlertMsg,
@@ -51,6 +49,7 @@ const SignupForm = () =>{
 
   /* EMAIL STATES */
   const [ email, setEmail ]               = useState('');
+  const [emailValid, setEmailValid] = useState(null);
 
   /* PASSWORD STATES */
   const [ password,    setPassword ]      = useState('');
@@ -61,8 +60,8 @@ const SignupForm = () =>{
   const [ confirm, setConfirm ]           = useState('');
   const [ confirmValid, setConfirmValid ] = useState(null);
 
-  /* To manage the state of submit buttion */
-  // const [submitBtnDisable, setSubmitBtnDisable] = useState(false);
+  /* SUBMIT BUTTON STATE */
+  const [ submitDisable, setSubmitDisable ] = useState(true);
 
   /* OnpageLoad, set default error msg */
   useEffect(() => {
@@ -118,15 +117,24 @@ const SignupForm = () =>{
         )
       } // LOOPS ENDS
 
-      /* Username field passes all test cases*/
-      if (testPass === usernameLimit.total_validations)
+      /* USERNAME - ALL TEST CASES PASS */
+      if (testPass === usernameLimit.total_validations){
         setUsernameValid(true);
+        checkSubmitBtn();
+      }
     }
   }
 
   /* Detect changes in EMAIL */
   const onEmailChange = e => {
-    setEmail(e.target.value);
+    const emailInput = e.target.value;
+    setEmail(emailInput);
+
+    setEmailValid(true);
+
+    /* Demo testing */
+    if ( emailInput.length > 5 )
+      checkSubmitBtn();
   }
 
   /* Detect changes in PASSWORD */
@@ -175,10 +183,12 @@ const SignupForm = () =>{
           testPass += 1
         )
       } // LOOPS ENDS
-      //
-      /* Password field passes all test cases*/
-      if (testPass === passwordLimit.total_validations)
+
+      /* PASSWORD - ALL TEST CASES PASS */
+      if (testPass === passwordLimit.total_validations){
         setPasswordValid(true);
+        checkSubmitBtn();
+      }
 
       /* 
        * When updating your password, 
@@ -204,9 +214,24 @@ const SignupForm = () =>{
       setConfirmValid(null);
 
     /* TEST - Non-Empty Input */
+    else if (  confirmInput === password  ){
+      /* CONFIRM - ALL TEST CASES PASS */
+      setConfirmValid(true);
+      checkSubmitBtn()
+    }
     else
-      /* Pass,if both passwords matches */
-      setConfirmValid( confirmInput === password )
+      setConfirmValid(false);
+  }
+
+  /* Enable submit btn if form valid */
+  const checkSubmitBtn = () => {
+    console.log('Checking for submit button');
+    let isFormValid = usernameValid && 
+                      emailValid && 
+                      passwordValid && 
+                      confirmValid;
+
+    setSubmitDisable(!isFormValid);
   }
 
   /* Submitting form data to backend */
@@ -351,7 +376,7 @@ const SignupForm = () =>{
         <Button type='submit'
                 variant='danger w-70' 
                 size='lg' 
-                //disabled={submitBtnDisable}
+                disabled={submitDisable}
                 className='px-5'>
           Create Account
         </Button>
