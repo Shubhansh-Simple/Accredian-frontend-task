@@ -33,7 +33,7 @@ const SignupForm = () =>{
 
   /* USERNAME STATES */
   const [ username, setUsername ]         = useState('');
-  const [ usernameErr, setUsernameErr ]   = useState('');
+  const [ usernameErr, setUsernameErr ]   = useState([]);
   const [usernameValid, setUsernameValid] = useState(null);
 
   /* EMAIL STATES */
@@ -41,7 +41,7 @@ const SignupForm = () =>{
 
   /* PASSWORD STATES */
   const [ password,    setPassword ]      = useState('');
-  const [ passwordErr, setPasswordErr ]   = useState('');
+  const [ passwordErr, setPasswordErr ]   = useState([]);
   const [passwordValid, setPasswordValid] = useState(null);
 
   /* CONFIRM PASSWORD STATE */
@@ -166,6 +166,15 @@ const SignupForm = () =>{
       /* Password field passes all test cases*/
       if (testPass === passwordLimit.total_validations)
         setPasswordValid(true);
+
+      /* 
+       * When updating your password, 
+       * please re-enter it for confirmation.
+       */
+      if ( confirm.length > 0 ){
+        setConfirm('')
+        setConfirmValid(null);
+      }
     }
   }
 
@@ -182,14 +191,9 @@ const SignupForm = () =>{
       setConfirmValid(null);
 
     /* TEST - Non-Empty Input */
-    else{
-        /* Pass,if both passwords matches */
-        confirmInput ===  password 
-                ?
-        setConfirmValid(true)
-                :
-        setConfirmValid(false)
-    }
+    else
+      /* Pass,if both passwords matches */
+      setConfirmValid( confirmInput === password )
   }
 
   /* Submitting form data to backend */
@@ -279,7 +283,7 @@ const SignupForm = () =>{
                                     && 
                                  !passwordValid }
                       placeholder='Password' />
-
+         
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
           <ErrMessageList msgList={passwordErr} />

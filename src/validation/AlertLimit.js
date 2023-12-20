@@ -51,7 +51,6 @@ const ascii_range = {
     ">" : true,
     "~" : true,
     "`" : true,
-    "'" : true,
   }
 }
 

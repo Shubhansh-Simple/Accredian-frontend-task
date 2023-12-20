@@ -12,7 +12,7 @@ import { MdCancel } from "react-icons/md";
  */
 function SuccessMessage( {msg='Success'} ){
   return (
-    <div className='text-success'>
+    <div>
       <TiTick />&nbsp;&nbsp;
       <b>{msg}</b>
     </div>
