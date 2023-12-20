@@ -1,80 +1,16 @@
 /*
  * Test functions on custom criteria
- * of each field
+ * password field
  */
 
 // Field Validation
 import {
   ascii_range,   
-  usernameLimit,
-  passwordLimit  }   from '../validation/AlertLimit';
+  passwordLimit  }   from '../../validation/AlertLimit';
 
 import {
-  hasCharacter, 
   hasAlphaDigit, 
-  hasSpecialCharacter } from './StringOperations';
-
-
-// Data
-import users from '../sampleUsers';
-
-/*
- * TESTING - USERNAME
- * against below test cases
- * Return - Updated ErrMsgState value for updating state
- */
-const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
-  /* TEST Criteria
-   *   CASE 0 - Mininum length 
-   *   CASE 1 - Maximum length 
-   *   CASE 2 - No spaces allowed 
-   *   CASE 3 - Some special char not allowed 
-   *   CASE 4 - Username already exist 
-   */
-  switch (id) {
-
-    /* TEST -  Mininum length */
-    case 0:
-      usernameErrState[id].visibility = inputLength < usernameLimit.min_len;
-      break;
-
-    /* TEST -  Maximum length */
-    case 1:
-      usernameErrState[id].visibility = inputLength > usernameLimit.max_len;
-      break;
-
-    /* TEST -  No spaces allowed */
-    case 2:
-      let spaceExist = hasCharacter(' ', inputValue, inputLength);
-      usernameErrState[id].visibility = spaceExist;
-      break;
-
-    /* TEST -  Some special char not allowed */
-    case 3:
-      // Not allowed - @
-      let bool = hasCharacter( usernameLimit.not_allow_char,
-                                       inputValue, 
-                                       inputLength );
-      usernameErrState[id].visibility = bool;
-      break;
-
-    /* TEST -  Username already exist */
-    case 4:
-      let isExist = users.some(user => user.username === inputValue);
-      usernameErrState[id].visibility = isExist;
-      break;
-
-    /* DEFAULT */
-    default:
-      console.log('DEFAULT-CASE RAISED!');
-      break;
-
-  } // SWITCH-CASE-ENDS
-
-  return usernameErrState;
-} // usernameTesting() ENDS
-
-/*--------------------------------------------------*/
+  hasSpecialCharacter } from '../StringOperations';
 
 /*
  * TESTING - PASSWORD
@@ -150,4 +86,4 @@ const passwordTesting = ( id,
   return passwordErrState;
 } // passwordTesting() ENDS
 
-export {usernameTesting, passwordTesting};
+export {passwordTesting};

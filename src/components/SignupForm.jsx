@@ -2,28 +2,50 @@
  * Card Body of Signup/Login Screen
  */
 
+/* 
+ * MODULES 
+ */
+
 // React
 import { useState, useEffect } from 'react';
 
 // React-bootstrap
 import { Form,Button }     from 'react-bootstrap'; 
+import { InputGroup }      from 'react-bootstrap';
+
+// React-Icons
+import { PiEyeDuotone } from "react-icons/pi";
+import { PiEyeFill } from "react-icons/pi";
+import { BsFillEyeFill } from "react-icons/bs";
+import { HiEye } from "react-icons/hi";
+import { PiEyeBold } from "react-icons/pi";
+import { PiEyeSlashFill } from "react-icons/pi";
+
+
+/* 
+ * LOCAL-MODULES 
+ */
 
 // Components
 import { ErrMessage,
          SuccessMessage,
          ErrMessageList  } from './Alert';
 
-// Local-Alert Components
+// Alert Components
 import { usernameAlertMsg,
          passwordAlertMsg,
          confirmAlertMsg } from '../validation/AlertMessage';
 
-// Field Validation Limits
+
+// Validation Limits
 import { usernameLimit, 
          passwordLimit,
+         emailLimit,
          confirmLimit }    from '../validation/AlertLimit';
 
-import { passwordTesting, usernameTesting } from '../validation/Testing';
+// Testing 
+import { usernameTesting } from '../validation/test/usernameTesting';
+import { passwordTesting } from '../validation/test/passwordTesting';
 
 /*
  * Signup Form
