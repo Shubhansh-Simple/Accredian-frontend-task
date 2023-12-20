@@ -6,7 +6,7 @@
 // Field Validation
 import {
   ascii_range,   
-  passwordLimit  }   from '../../validation/AlertLimit';
+  passwordLimit  }   from '../AlertLimit';
 
 import {
   hasAlphaDigit, 
