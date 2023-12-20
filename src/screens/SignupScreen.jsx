@@ -12,6 +12,7 @@ import SignupForm       from '../components/SignupForm';
 // IconStyle iconSignup from index.css
 
 const SignupScreen = () => {
+  /* JSX CODE */
   return(
     <Container className='px-4'>
       <br />

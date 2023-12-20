@@ -12,7 +12,7 @@ import { MdCancel } from "react-icons/md";
  */
 function SuccessMessage( {msg='Success'} ){
   return (
-    <div>
+    <div className='text-success'>
       <TiTick />&nbsp;&nbsp;
       <b>{msg}</b>
     </div>
@@ -24,7 +24,7 @@ function SuccessMessage( {msg='Success'} ){
  */
 function ErrMessage( {msg='Fail'} ){
   return (
-    <div>
+    <div className='text-danger'>
       <MdCancel />&nbsp;&nbsp;
       <b>{msg}</b>
     </div>
@@ -35,7 +35,7 @@ function ErrMessage( {msg='Fail'} ){
  * Iterate through entire message list if it's exist
  * also showing message based on it's visiblity 
  */
-function ErrMessageList( {msgList=[]} ){
+function ErrMessageList( {msgList=[], greenTick=false} ){
   return (
     <>
       {
@@ -55,7 +55,36 @@ function ErrMessageList( {msgList=[]} ){
   );
 }
 
-export { SuccessMessage, ErrMessage, ErrMessageList };
+const Message = ( {msg, greenTick} ) =>{
+  if ( greenTick ){
+    if ( msg.visibility )
+      return <ErrMessage msg={msg.msg} />
+    else
+      return <SuccessMessage msg={msg.msg} />
+  }
+  else if( msg.visibility ){
+    return <ErrMessage msg={msg.msg} />
+  }
+}
+
+const MessageIterate = ( {msgList, greenTick}) => {
+  return (
+    <>
+      {
+        msgList
+          &&
+        msgList.map((msg, index) => {
+          return <Message key={index} 
+                          msg={msg} 
+                          greenTick={greenTick} />
+        })
+      }
+    </>
+  );
+}
+
+
+export { MessageIterate, SuccessMessage, ErrMessage, ErrMessageList };
 
 
 

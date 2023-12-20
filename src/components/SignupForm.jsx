@@ -1,5 +1,5 @@
 /*
- * Card Body of Signup/Login Screen
+ * Card Body of Signup Screen
  */
 
 /* 
@@ -13,29 +13,20 @@ import { useState, useEffect } from 'react';
 import { Form,Button }     from 'react-bootstrap'; 
 import { InputGroup }      from 'react-bootstrap';
 
-// React-Icons
-import { PiEyeDuotone } from "react-icons/pi";
-import { PiEyeFill } from "react-icons/pi";
-import { BsFillEyeFill } from "react-icons/bs";
-import { HiEye } from "react-icons/hi";
-import { PiEyeBold } from "react-icons/pi";
-import { PiEyeSlashFill } from "react-icons/pi";
-
-
 /* 
  * LOCAL-MODULES 
  */
-
 // Components
 import { ErrMessage,
          SuccessMessage,
+         MessageIterate,
          ErrMessageList  } from './Alert';
 
 // Alert Components
 import { usernameAlertMsg,
          passwordAlertMsg,
+         emailAlertMsg,
          confirmAlertMsg } from '../validation/AlertMessage';
-
 
 // Validation Limits
 import { usernameLimit, 
@@ -260,7 +251,7 @@ const SignupForm = () =>{
 
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <ErrMessageList msgList={usernameErr} />
+          <MessageIterate msgList={usernameErr} greenTick={false} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}
@@ -281,7 +272,7 @@ const SignupForm = () =>{
                       type='email' 
                       value={email}
                       onChange={onEmailChange}
-                      placeholder='Type your email' />
+                      placeholder='example@email.com' />
       </Form.Group>
 
       {/* ------------------------------------------------------- */}
@@ -308,7 +299,7 @@ const SignupForm = () =>{
          
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <ErrMessageList msgList={passwordErr} />
+          <MessageIterate msgList={passwordErr} greenTick={true} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}
