@@ -60,7 +60,8 @@ const router = createBrowserRouter(
              path='signup' 
              element={ <SignupScreen /> }/>
 
-      {/* SignupScreen Page */}
+
+      {/* PracticeScreen Page */}
       <Route index={true} 
              path='practice' 
              element={ <PracticeScreen /> }/>
