@@ -45,19 +45,24 @@ function EmailField() {
   /* OnpageLoad, set default error msg */
   useEffect(() => {
     setEmailErr(emailAlertMsg);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* Detect changes in EMAIL */
   const onEmailChange = e => {
+
     const emailInput = e.target.value;
+    const emailInputLen = emailInput.length;
+
     setEmail(emailInput);
 
-    setEmailValid(true);
-
-    // /* Demo testing */
-    // if ( emailInput.length > 5 )
-    //   checkSubmitBtn();
+    if (emailInputLen > 5)
+      setEmailValid(true);
+    else if ( emailInputLen === 0 )
+      setEmailValid(null);
+    else
+      setEmailValid(false);
   }
 
   /* ------OBJECT WITH JSX CODE---------- */

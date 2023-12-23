@@ -28,27 +28,27 @@ const SignupForm = () =>{
 
   /* Getting data from other files */
   const {username, usernameValid, UsernameFieldJSX} = UsernameField();
-  const {email, emailValid, EmailFieldJSX}          = EmailField();
+  const {email,    emailValid,    EmailFieldJSX}    = EmailField();
   const {password, passwordValid, PasswordFieldJSX} = PasswordField();
-  const {confirm, confirmValid, ConfirmFieldJSX}    = ConfirmField();
+  const {confirm,  confirmValid,  ConfirmFieldJSX}  = ConfirmField( password,passwordValid );
 
   /* SUBMIT BUTTON STATE */
   const [ submitDisable, setSubmitDisable ] = useState(true);
 
-  /* OnpageLoad, set default error msg */
+  /* OnpageLoad, and when form field validity changed */
   useEffect(() => {
+    checkSubmitBtn();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ usernameValid, emailValid, passwordValid, confirmValid ]);
 
-   /* Enable submit btn if form valid */
+   /* Enable submit btn only if form is valid */
   const checkSubmitBtn = () => {
-    let isFormValid = usernameValid && 
-                      emailValid && 
-                      passwordValid && 
-                      confirmValid;
-    console.log('Checking for submit button - ',isFormValid);
-
-    setSubmitDisable(isFormValid);
+    let isFormValid = Boolean( usernameValid && 
+                               emailValid && 
+                               passwordValid &&
+                               confirmValid );
+    setSubmitDisable( !isFormValid );
   }
 
   /* Submitting form data to backend */
@@ -58,7 +58,7 @@ const SignupForm = () =>{
     /* Prepare the data */
     const submittedData = {
       'username'        : username,
-      'email'           : email,
+      'email'         : email,
       'password'        : password,
       'confirmPassword' : confirm,
     }
@@ -74,21 +74,22 @@ const SignupForm = () =>{
       {/* USERNAME FIELD (1/4) */}
       {UsernameFieldJSX}
 
-      {/* EMAIL FIELD (1/4) */}
+      {/* EMAIL FIELD (2/4) */}
       {EmailFieldJSX}
 
-      {/* PASSWORD FIELD (1/4) */}
+      {/* PASSWORD FIELD (3/4) */}
       {PasswordFieldJSX}
 
-      {/* CONFIRM PASSWORD FIELD (1/4) */}
+      {/* CONFIRM PASSWORD FIELD (4/4) */}
       {ConfirmFieldJSX}
 
       {/* SUBMIT BUTTON  */}
+      <br />
       <div className='text-center'>
         <Button type='submit'
                 variant='danger w-70' 
                 size='lg' 
-                disabled={true}
+                disabled={submitDisable}
                 className='px-5'>
           Create Account
         </Button>

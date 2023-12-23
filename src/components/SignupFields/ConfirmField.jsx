@@ -7,7 +7,7 @@
  */
 
 // React
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // React-bootstrap
 import { Form }     from 'react-bootstrap'; 
@@ -26,38 +26,46 @@ import { confirmAlertMsg } from '../../validation/AlertMessage';
 import { confirmLimit }    from '../../validation/AlertLimit';
 
 /*
- * Return Password Form Field OBJECT
- * with password, passwordValid, state value
+ * Return Confirm Password Form Field OBJECT
+ * with confirm, confirmValid, state value
  */
-function ConfirmField() {
+function ConfirmField( password,passwordValid ) {
 
   /* CONFIRM PASSWORD STATE */
-  const [confirm, setConfirm] = useState('');
+  const [confirm, setConfirm]           = useState('');
   const [confirmValid, setConfirmValid] = useState(null);
 
-  // for now
-  let password = '';
-  let passwordValid = false;
+  /* 
+   * On updating your password, 
+   * re-enter confirm password for confirmation
+   */
+  useEffect(()=>{
+
+    setConfirm('');
+    setConfirmValid(null);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[passwordValid]);
 
   /* Detect changes in CONFIRM PASSWORD */
   const onConfirmChange = e => {
 
     // Current value of input field
-    const confirmInput = e.target.value;
+    const confirmInput    = e.target.value;
+    const confirmInputLen = confirmInput.length;
+
     setConfirm(confirmInput);
 
-    /* TEST - Empty Input */
-    if (confirmInput.length === 0)
-      setConfirmValid(null);
+    /* Are both password matches */
+    let isEqual = (confirmInput === password);
 
     /* TEST - Non-Empty Input */
-    else if (confirmInput === password) {
-      /* CONFIRM - ALL TEST CASES PASS */
-      setConfirmValid(true);
-      // checkSubmitBtn()
-    }
+    if ( confirmInputLen > 0 )
+      setConfirmValid( isEqual );
+
+    /* TEST - Empty Input */
     else
-      setConfirmValid(false);
+      setConfirmValid( null );
   }
 
   /* ------OBJECT WITH JSX CODE---------- */
@@ -78,12 +86,12 @@ function ConfirmField() {
         <Form.Control required
           size='lg'
           type='password'
-          isValid={confirmValid}
-          isInvalid={confirmValid !== null
-            &&
-            !confirmValid}
           value={confirm}
           onChange={onConfirmChange}
+          isValid={confirmValid}
+          isInvalid={ confirmValid !== null
+                          &&
+                      !confirmValid }
           disabled={!passwordValid}
           placeholder='Retype password' />
 
