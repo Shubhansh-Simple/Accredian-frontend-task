@@ -2,7 +2,7 @@
  * Message shown on VALIDATON FAILURE
  *
  * Alert messages of each form field
- * on their FAILURE of validation test
+ * on their validation FAILURE 
  */
 
 /*
@@ -12,7 +12,7 @@
  */
 
 /* 
- * USERNAME ALERT MESSAGE 
+ * USERNAME ALERT MESSAGE LIST
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const usernameAlertMsg = [
@@ -44,7 +44,7 @@ const usernameAlertMsg = [
 ]
 
 /* 
- * EMAIL ALERT MESSAGE 
+ * EMAIL ALERT MESSAGE LIST
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const emailAlertMsg = [
@@ -59,7 +59,7 @@ const emailAlertMsg = [
 ]
 
 /* 
- * PASSWORD ALERT MESSAGE 
+ * PASSWORD ALERT MESSAGE LIST
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const passwordAlertMsg = [
@@ -100,7 +100,6 @@ const passwordAlertMsg = [
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const confirmAlertMsg = {
-    'visibility' : false,
     'msg'        : 'Password does not match'
   }
 

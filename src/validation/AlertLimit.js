@@ -20,39 +20,22 @@ const ascii_range = {
     'end': 57,
   }
 }
-
+/*
+ * For checking atleast one/none 
+ * special character required
+ */
 const  specialCharacter = {
-    "'" : true,
-    "!" : true,
-    "@" : true,
-    "#" : true,
-    "$" : true,
-    "%" : true,
-    "^" : true,
-    "&" : true,
-    "*" : true,
-    "(" : true,
-    ")" : true,
-    "_" : true,
-    "+" : true,
-    "-" : true,
-    "=" : true,
-    "{" : true,
-    "}" : true,
-    "[" : true,
-    "]" : true,
-    "|" : true,
-    ";" : true,
-    ":" : true,
-    "," : true,
-    "." : true,
-    "/" : true,
-    "?" : true,
-    "<" : true,
-    ">" : true,
-    "~" : true,
-    "`" : true,
-  }
+  "'" : true, "!" : true, "@" : true,
+  "#" : true, "$" : true, "%" : true,
+  "^" : true, "&" : true, "*" : true,
+  "(" : true, ")" : true, "_" : true,
+  "+" : true, "-" : true, "=" : true,
+  "{" : true, "}" : true, "[" : true,
+  "]" : true, "|" : true, ";" : true,
+  ":" : true, "," : true, "." : true,
+  "/" : true, "?" : true, "<" : true,
+  ">" : true, "~" : true, "`" : true,
+}
 
 /*
  * Username Field
@@ -60,7 +43,7 @@ const  specialCharacter = {
 const usernameLimit = {
   'min_len'            : 6,
   'max_len'            : 12,
-  'not_allow_char'     : '@',
+  'not_allow_char'     : '@', // need to improve
   'success_msg'        : 'Username is taken',
   'total_validations'  : 5,
 }
@@ -69,6 +52,7 @@ const usernameLimit = {
  * Email Field
  */
 const emailLimit = {
+  'max_len'            : 20,
   'success_msg'        : 'Email is taken',
 }
 
@@ -78,7 +62,7 @@ const emailLimit = {
 const passwordLimit = {
   'min_len'            : 8,
   'max_len'            : 15,
-  'allow_special_char' : '~`!@#$%^&*()-_+=',
+  'allow_special_char' : '~`!@#$%^&*()-_+=', // unused
   'success_msg'        : 'Password is taken',
   'total_validations'  : 6,
 }
