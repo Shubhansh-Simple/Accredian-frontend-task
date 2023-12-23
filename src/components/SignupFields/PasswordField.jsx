@@ -19,7 +19,7 @@ import { Form }     from 'react-bootstrap';
 // Components
 import { SuccessMessage, MessageList  } from '../Alert';
 
-// Alert Components
+// Alert Text Messages
 import { passwordAlertMsg } from '../../validation/AlertMessage';
 
 // Validation Limits
@@ -36,13 +36,13 @@ import { passwordTesting }  from '../../validation/test/passwordTesting';
 function PasswordField() {
 
   /* PASSWORD STATES */
-  const [ password,    setPassword ]      = useState('');
-  const [ passwordErr, setPasswordErr ]   = useState([]);
-  const [passwordValid, setPasswordValid] = useState(null);
+  const [ password,        setPassword ]        = useState('');
+  const [ passwordErrList, setPasswordErrList ] = useState([]);
+  const [passwordValid,    setPasswordValid]    = useState(null);
 
   /* OnpageLoad, set default error msg */
   useEffect(() => {
-    setPasswordErr(passwordAlertMsg);
+    setPasswordErrList(passwordAlertMsg);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,7 +67,7 @@ function PasswordField() {
       for (let i = 0; i < passwordLimit.total_validations; i++) {
 
         // Copy of current err msg state
-        let copyErrState  = [...passwordErr];
+        let copyErrState  = [...passwordErrList];
 
         /* 
          * Testing input value against test cases and 
@@ -76,7 +76,7 @@ function PasswordField() {
         copyErrState = passwordTesting( i, copyErrState, 
                                            passwordInput,
                                            passwordInputLen );
-        setPasswordErr(copyErrState);
+        setPasswordErrList(copyErrState);
 
         (
           copyErrState[i].visibility
@@ -127,7 +127,7 @@ function PasswordField() {
          
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <MessageList msgList={passwordErr} />
+          <MessageList msgList={passwordErrList} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}

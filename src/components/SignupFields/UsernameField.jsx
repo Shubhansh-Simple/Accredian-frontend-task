@@ -19,7 +19,7 @@ import { Form }     from 'react-bootstrap';
 // Components
 import { SuccessMessage, ErrMessageList  } from '../Alert';
 
-// Alert Components
+// Alert Text Messages
 import { usernameAlertMsg } from '../../validation/AlertMessage';
 
 // Validation Limits
@@ -36,13 +36,13 @@ import { usernameTesting }  from '../../validation/test/usernameTesting';
 function UsernameField(){
 
   /* USERNAME STATES */
-  const [ username, setUsername ]         = useState('');
-  const [ usernameErr, setUsernameErr ]   = useState([]);
-  const [usernameValid, setUsernameValid] = useState(null);
+  const [ username, setUsername ]               = useState('');
+  const [ usernameErrList, setUsernameErrList ] = useState([]);
+  const [usernameValid, setUsernameValid]       = useState(null);
 
   /* OnpageLoad, set default error msg */
   useEffect(() => {
-    setUsernameErr(usernameAlertMsg);
+    setUsernameErrList(usernameAlertMsg);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,7 +67,7 @@ function UsernameField(){
       for (let i=0; i < usernameLimit.total_validations; i++ ){
 
         // Copy of current err msg state
-        let copyErrState  = [...usernameErr];
+        let copyErrState  = [...usernameErrList];
 
         /* 
          * Testing input value against test cases and 
@@ -76,7 +76,7 @@ function UsernameField(){
         copyErrState = usernameTesting(i, copyErrState,
                                           usernameInput,
                                           usernameInputLen);
-        setUsernameErr(copyErrState);
+        setUsernameErrList(copyErrState);
 
         (
           copyErrState[i].visibility
@@ -127,7 +127,7 @@ function UsernameField(){
 
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <ErrMessageList msgList={usernameErr} />
+          <ErrMessageList msgList={usernameErrList} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}
