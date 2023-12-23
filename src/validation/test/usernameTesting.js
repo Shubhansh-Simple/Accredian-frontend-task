@@ -34,43 +34,42 @@ const usernameTesting=( id,
 
     /* TEST -  Mininum length */
     case 0:
-      usernameErrList[id].visibility = inputLength < usernameLimit.min_len;
+      check = inputLength < usernameLimit.min_len;
       break;
 
     /* TEST -  Maximum length */
     case 1:
-      usernameErrList[id].visibility = inputLength > usernameLimit.max_len;
+      check = inputLength > usernameLimit.max_len;
       break;
 
     /* TEST -  No spaces allowed */
     case 2:
       check = hasCharacter(' ', inputValue, inputLength);
-      usernameErrList[id].visibility = check;
       break;
 
     /* TEST -  Some special char not allowed */
     case 3:
       // Not allowed - @
       check = hasCharacter( usernameLimit.not_allow_char,
-                                       inputValue, 
-                                       inputLength );
-      usernameErrList[id].visibility = check;
+                            inputValue, 
+                            inputLength );
       break;
 
     /* TEST -  Username already exist */
     case 4:
       check = users.some(user => user.username === inputValue);
-      usernameErrList[id].visibility = check
       break;
 
     /* DEFAULT */
     default:
-      console.log('DEFAULT-CASE RAISED!');
+      console.log('USERNAME,DEFAULT-CASE RAISED!'); 
       break;
 
   } // SWITCH-CASE-ENDS
 
+  usernameErrList[id].visibility = check
   return usernameErrList;
+
 } // usernameTesting() ENDS
 
 export {usernameTesting};

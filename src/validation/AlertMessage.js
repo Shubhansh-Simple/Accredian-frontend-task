@@ -5,6 +5,8 @@
  * on their validation FAILURE 
  */
 
+import {usernameLimit, passwordLimit, emailLimit} from "./AlertLimit";
+
 /*
  * Note : SUCCESS message will be shown only 
  *        after the form field is set to valid
@@ -19,12 +21,12 @@ const usernameAlertMsg = [
   /* * MSG -  MIN LEN * INDEX - 0 */
   {
     'visibility' : false,
-    'msg'        : 'Username must be atleast of 6 characters'
+    'msg'        : `Username must be atleast of ${usernameLimit.min_len} characters`
   },
   /* * MSG -  MAX LEN * INDEX - 1 */
   {
     'visibility' : false,
-    'msg'        : 'Username must not be more than 12 characters' 
+    'msg'        : `Username must not be more than ${usernameLimit.max_len} characters`
   },
   /* * MSG -  NO SPACE * INDEX - 2 */
   {
@@ -66,12 +68,12 @@ const passwordAlertMsg = [
   /* * MSG -  MIN LEN * INDEX - 0 */
   {
     'visibility' : false,
-    'msg'        : 'Password must be atleast of 8 characters'
+    'msg'        : `Password must be atleast of ${passwordLimit.min_len} characters`
   },
   /* * MSG -  MAX LEN * INDEX - 1 */
   {
     'visibility' : false,
-    'msg'        : 'Password must not be more than 15 characters' 
+    'msg'        : `Password must not be more than ${passwordLimit.max_len} characters ` 
   },
   /* * MSG -  MUST HAS LOWER * INDEX - 2 */
   {

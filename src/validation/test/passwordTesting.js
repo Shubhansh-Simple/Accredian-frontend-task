@@ -35,46 +35,44 @@ const passwordTesting = ( id,
 
     /* TEST -  Mininum length */
     case 0:
-      passwordErrList[id].visibility = inputLength < passwordLimit.min_len;
+      check = inputLength < passwordLimit.min_len;
       break;
 
     /* TEST -  Maximum length */
     case 1:
-      passwordErrList[id].visibility = inputLength > passwordLimit.max_len;
+      check = inputLength > passwordLimit.max_len;
       break;
 
     /* TEST -  Atleast one lower character */
     case 2:
       check = !hasLower(inputValue, inputLength);
-      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one upper character */
     case 3:
       check = !hasUpper(inputValue, inputLength);
-      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one digit */
     case 4:
       check = !hasDigit(inputValue, inputLength);
-      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one special character */
     case 5:
-      check     = !hasSpecialCharacter( inputValue,inputLength );
-      passwordErrList[id].visibility = check;
+      check     = !hasSpecialCharacter(inputValue, inputLength);
       break;
 
     /* DEFAULT */
     default: 
-      console.log('DEFAULT-CASE RAISED!'); 
+      console.log('PASSWORD,DEFAULT-CASE RAISED!'); 
       break;
 
   } // SWITCH-CASE-ENDS
 
+  passwordErrList[id].visibility = check;
   return passwordErrList;
+
 } // passwordTesting() ENDS
 
 export {passwordTesting};
