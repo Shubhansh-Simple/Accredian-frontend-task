@@ -128,7 +128,7 @@ function PasswordField() {
         </Form.Label>
 
         {/* Field Input */}
-        <Form.Control required 
+        <Form.Control required
                       size='lg' 
                       type='password' 
                       value={password}

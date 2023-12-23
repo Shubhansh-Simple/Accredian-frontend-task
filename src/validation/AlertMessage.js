@@ -16,42 +16,27 @@
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const usernameAlertMsg = [
-  /* 
-   * MSG -  MIN LEN 
-   * INDEX - 0 
-   */
+  /* * MSG -  MIN LEN * INDEX - 0 */
   {
     'visibility' : false,
     'msg'        : 'Username must be atleast of 6 characters'
   },
-  /* 
-   * MSG -  MAX LEN 
-   * INDEX - 1 
-   */
+  /* * MSG -  MAX LEN * INDEX - 1 */
   {
     'visibility' : false,
     'msg'        : 'Username must not be more than 12 characters' 
   },
-  /* 
-   * MSG -  NO SPACE 
-   * INDEX - 2 
-   */
+  /* * MSG -  NO SPACE * INDEX - 2 */
   {
     'visibility' : false,
     'msg'        : 'No spaces allowed'                           
   },
-  /* 
-   * MSG - @ NOT ALLOW
-   * INDEX - 3 
-   */
+  /* * MSG - @ NOT ALLOW * INDEX - 3 */
   {
     'visibility' : false,
     'msg'        : 'Special character "@" not allowed in username'
   },
-  /* 
-   * MSG -  ALREADY EXIST
-   * INDEX - 4 
-   */
+  /* * MSG -  ALREADY EXIST * INDEX - 4 */
   {
     'visibility' : false,
     'msg'        : 'Username already exist'                       
@@ -78,44 +63,32 @@ const emailAlertMsg = [
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const passwordAlertMsg = [
-  /* 
-   * MSG -  MIN LEN * INDEX - 0 
-   */
+  /* * MSG -  MIN LEN * INDEX - 0 */
   {
     'visibility' : false,
     'msg'        : 'Password must be atleast of 8 characters'
   },
-  /* 
-   * MSG -  MAX LEN * INDEX - 1 
-   */
+  /* * MSG -  MAX LEN * INDEX - 1 */
   {
     'visibility' : false,
     'msg'        : 'Password must not be more than 15 characters' 
   },
-  /* 
-   * MSG -  MUST HAS LOWER * INDEX - 2 
-   */
+  /* * MSG -  MUST HAS LOWER * INDEX - 2 */
   {
     'visibility' : false,
     'msg'        : 'Password must contain atleast one lowercase character'
   },
-  /* 
-   * MSG -  MUST HAS UPPER * INDEX - 3 
-   */
+  /* * MSG -  MUST HAS UPPER * INDEX - 3 */
   {
     'visibility' : false,
     'msg'        : 'Password must contain atleast one uppercase character'
   },
-  /* 
-   * MSG -  MUST HAS DIGIT * INDEX - 4 
-   */
+  /* * MSG -  MUST HAS DIGIT * INDEX - 4 */
   {
     'visibility' : false,
     'msg'        : 'Password must contain atleast one digit' 
   },
-  /* 
-   * MSG -  MUST HAS SPECIAL * INDEX - 5 
-   */
+  /* * MSG -  MUST HAS SPECIAL * INDEX - 5 */
   {
     'visibility' : false,
     'msg'        : 'Password must contain atleast one special character'

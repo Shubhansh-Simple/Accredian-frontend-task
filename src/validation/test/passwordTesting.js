@@ -9,7 +9,9 @@ import {
   passwordLimit  }   from '../AlertLimit';
 
 import {
-  hasAlphaDigit, 
+  hasLower,
+  hasUpper,
+  hasDigit,
   hasSpecialCharacter } from '../StringOperations';
 
 /*
@@ -45,28 +47,19 @@ const passwordTesting = ( id,
 
     /* TEST -  Atleast one lower character */
     case 2:
-      check     = !hasAlphaDigit( inputValue, 
-                                  inputLength,
-                                  ascii_range.lower.start,
-                                  ascii_range.lower.end );
+      check = !hasLower(inputValue, inputLength);
       passwordErrState[id].visibility = check;
       break;
 
     /* TEST -  Atleast one upper character */
     case 3:
-      check     = !hasAlphaDigit( inputValue, 
-                                  inputLength,
-                                  ascii_range.upper.start,
-                                  ascii_range.upper.end );
+      check = !hasUpper(inputValue, inputLength);
       passwordErrState[id].visibility = check;
       break;
 
     /* TEST -  Atleast one digit */
     case 4:
-      check     = !hasAlphaDigit( inputValue, 
-                                  inputLength,
-                                  ascii_range.digit.start,
-                                  ascii_range.digit.end );
+      check = !hasDigit(inputValue, inputLength);
       passwordErrState[id].visibility = check;
       break;
 

@@ -7,20 +7,21 @@
  * digits and special character
  */
 const ascii_range = {
-  'lower' : {
-    'start' : 97,
-    'end'   : 122,
+  'lower': {
+    'start': 97,
+    'end': 122,
   },
-  'upper' : {
-    'start' : 65,
-    'end'   : 90,
+  'upper': {
+    'start': 65,
+    'end': 90,
   },
-  'digit' : {
-    'start' : 48,
-    'end'   : 57,
-  },
+  'digit': {
+    'start': 48,
+    'end': 57,
+  }
+}
 
-  'specialCharacter' : {
+const  specialCharacter = {
     "'" : true,
     "!" : true,
     "@" : true,
@@ -52,7 +53,6 @@ const ascii_range = {
     "~" : true,
     "`" : true,
   }
-}
 
 /*
  * Username Field
@@ -95,7 +95,8 @@ export {  usernameLimit,
           emailLimit,
           passwordLimit,
           confirmLimit,
-          ascii_range
+          ascii_range,
+          specialCharacter
        };
 
 
