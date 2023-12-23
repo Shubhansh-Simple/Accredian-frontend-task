@@ -14,9 +14,12 @@ import users from '../../sampleUsers';
 /*
  * TESTING - USERNAME
  * against below test cases
- * Return - Updated ErrMsgState value for updating state
+ * Return - Updated ErrMsgList value for updating state
  */
-const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
+const usernameTesting=( id,
+                        usernameErrList,
+                        inputValue,
+                        inputLength )=>{
   /* TEST Criteria
    *   CASE 0 - Mininum length 
    *   CASE 1 - Maximum length 
@@ -24,37 +27,40 @@ const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
    *   CASE 3 - Some special char not allowed 
    *   CASE 4 - Username already exist 
    */
+
+  var check = null;
+
   switch (id) {
 
     /* TEST -  Mininum length */
     case 0:
-      usernameErrState[id].visibility = inputLength < usernameLimit.min_len;
+      usernameErrList[id].visibility = inputLength < usernameLimit.min_len;
       break;
 
     /* TEST -  Maximum length */
     case 1:
-      usernameErrState[id].visibility = inputLength > usernameLimit.max_len;
+      usernameErrList[id].visibility = inputLength > usernameLimit.max_len;
       break;
 
     /* TEST -  No spaces allowed */
     case 2:
-      let spaceExist = hasCharacter(' ', inputValue, inputLength);
-      usernameErrState[id].visibility = spaceExist;
+      check = hasCharacter(' ', inputValue, inputLength);
+      usernameErrList[id].visibility = check;
       break;
 
     /* TEST -  Some special char not allowed */
     case 3:
       // Not allowed - @
-      let bool = hasCharacter( usernameLimit.not_allow_char,
+      check = hasCharacter( usernameLimit.not_allow_char,
                                        inputValue, 
                                        inputLength );
-      usernameErrState[id].visibility = bool;
+      usernameErrList[id].visibility = check;
       break;
 
     /* TEST -  Username already exist */
     case 4:
-      let isExist = users.some(user => user.username === inputValue);
-      usernameErrState[id].visibility = isExist;
+      check = users.some(user => user.username === inputValue);
+      usernameErrList[id].visibility = check
       break;
 
     /* DEFAULT */
@@ -64,7 +70,7 @@ const usernameTesting=( id,usernameErrState,inputValue,inputLength )=>{
 
   } // SWITCH-CASE-ENDS
 
-  return usernameErrState;
+  return usernameErrList;
 } // usernameTesting() ENDS
 
 export {usernameTesting};

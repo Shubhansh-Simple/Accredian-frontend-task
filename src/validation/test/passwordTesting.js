@@ -4,9 +4,7 @@
  */
 
 // Field Validation
-import {
-  ascii_range,   
-  passwordLimit  }   from '../AlertLimit';
+import {passwordLimit}  from '../AlertLimit';
 
 import {
   hasLower,
@@ -17,10 +15,10 @@ import {
 /*
  * TESTING - PASSWORD
  * against below test cases
- * Return - Updated ErrMsgState value for updating state
+ * Return - Updated ErrMsgList value for updating state
  */
 const passwordTesting = ( id, 
-                          passwordErrState, 
+                          passwordErrList, 
                           inputValue, 
                           inputLength )=> {
   /* TEST Criteria
@@ -31,42 +29,42 @@ const passwordTesting = ( id,
    *   CASE 4 - Have at least one digit 
    *   CASE 5 - Have at least one special character 
    */
-  var check;
+  var check = null;
 
   switch (id) {
 
     /* TEST -  Mininum length */
     case 0:
-      passwordErrState[id].visibility = inputLength < passwordLimit.min_len;
+      passwordErrList[id].visibility = inputLength < passwordLimit.min_len;
       break;
 
     /* TEST -  Maximum length */
     case 1:
-      passwordErrState[id].visibility = inputLength > passwordLimit.max_len;
+      passwordErrList[id].visibility = inputLength > passwordLimit.max_len;
       break;
 
     /* TEST -  Atleast one lower character */
     case 2:
       check = !hasLower(inputValue, inputLength);
-      passwordErrState[id].visibility = check;
+      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one upper character */
     case 3:
       check = !hasUpper(inputValue, inputLength);
-      passwordErrState[id].visibility = check;
+      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one digit */
     case 4:
       check = !hasDigit(inputValue, inputLength);
-      passwordErrState[id].visibility = check;
+      passwordErrList[id].visibility = check;
       break;
 
     /* TEST -  Atleast one special character */
     case 5:
       check     = !hasSpecialCharacter( inputValue,inputLength );
-      passwordErrState[id].visibility = check;
+      passwordErrList[id].visibility = check;
       break;
 
     /* DEFAULT */
@@ -76,7 +74,7 @@ const passwordTesting = ( id,
 
   } // SWITCH-CASE-ENDS
 
-  return passwordErrState;
+  return passwordErrList;
 } // passwordTesting() ENDS
 
 export {passwordTesting};
