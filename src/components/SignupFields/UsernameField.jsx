@@ -17,8 +17,7 @@ import { Form }     from 'react-bootstrap';
  */
 
 // Components
-import { SuccessMessage,
-         MessageIterate  } from '../Alert';
+import { SuccessMessage, ErrMessageList  } from '../Alert';
 
 // Alert Components
 import { usernameAlertMsg } from '../../validation/AlertMessage';
@@ -57,39 +56,35 @@ function UsernameField(){
     // Set state as current value
     setUsername( usernameInput );
 
-    /* TEST - Empty Input */
-    if ( usernameInputLen === 0 )
-      setUsernameValid(null);
-
     /* TEST - Non-Empty Input */
-    else{
+    if ( usernameInputLen > 0 ){
+
       let testPass = 0;
-      /* 
+
+      /*
        * Testing user inputs on each key stroke 
-       * for username
        */
       for (let i=0; i < usernameLimit.total_validations; i++ ){
+
+        // Copy of current err msg state
         let copyErrState  = [...usernameErr];
+
         /* 
-         * Verify current value against test cases and 
-         * adjust error message visibility accordingly
+         * Testing input value against test cases and 
+         * update error message visibility accordingly
          */
         copyErrState = usernameTesting(i, copyErrState,
                                           usernameInput,
                                           usernameInputLen);
         setUsernameErr(copyErrState);
 
-        /* 
-         * If visibility of any err message is true  
-         * means error is raised & 
-         * field is invalid otherwise
-         * that testcase pass and counted
-         */
         (
           copyErrState[i].visibility
                 ?
+          /* If err visibility is true then field become invalid */
           setUsernameValid(false)
                 :
+          /* Otherwise, test pass and counted */
           testPass += 1
         )
       } // LOOPS ENDS
@@ -97,8 +92,11 @@ function UsernameField(){
       /* USERNAME - ALL TEST CASES PASS */
       if (testPass === usernameLimit.total_validations)
        setUsernameValid(true);
-        // checkSubmitBtn();
     }
+
+    /* TEST - Empty Input */
+    else
+      setUsernameValid(null);
   }
 
   /* ------OBJECT WITH JSX CODE---------- */
@@ -129,7 +127,7 @@ function UsernameField(){
 
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <MessageIterate msgList={usernameErr} greenTick={false} />
+          <ErrMessageList msgList={usernameErr} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}

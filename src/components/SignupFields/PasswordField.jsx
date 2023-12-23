@@ -29,7 +29,6 @@ import { passwordLimit }    from '../../validation/AlertLimit';
 import { passwordTesting }  from '../../validation/test/passwordTesting';
 
 
-
 /*
  * Return Password Form Field OBJECT
  * with password, passwordValid, state value
@@ -41,13 +40,11 @@ function PasswordField() {
   const [ passwordErr, setPasswordErr ]   = useState([]);
   const [passwordValid, setPasswordValid] = useState(null);
 
-
   /* OnpageLoad, set default error msg */
   useEffect(() => {
     setPasswordErr(passwordAlertMsg);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   /* Detect changes in PASSWORD */
   const onPasswordChange = e => {
@@ -59,39 +56,35 @@ function PasswordField() {
     // Set state as current value
     setPassword( passwordInput );
 
-    /* TEST - Empty Input */
-    if ( passwordInputLen === 0 )
-      setPasswordValid(null);
-
     /* TEST - Non-Empty Input */
-    else{
+    if ( passwordInputLen > 0 ){
+
       let testPass = 0;
+
       /* 
        * Testing user inputs on each key stroke 
-       * for password 
        */
       for (let i = 0; i < passwordLimit.total_validations; i++) {
+
+        // Copy of current err msg state
         let copyErrState  = [...passwordErr];
+
         /* 
-         * Verify current value against test cases and 
-         * adjust error message visibility accordingly
+         * Testing input value against test cases and 
+         * update error message visibility accordingly
          */
         copyErrState = passwordTesting( i, copyErrState, 
                                            passwordInput,
                                            passwordInputLen );
         setPasswordErr(copyErrState);
 
-        /* 
-         * If visibility of any err message is true  
-         * means error is raised & 
-         * field is invalid otherwise
-         * that testcase pass and counted
-         */
         (
           copyErrState[i].visibility
                 ?
+          /* If err visibility is true then field become invalid */
           setPasswordValid(false)
                 :
+          /* Otherwise, test pass and counted */
           testPass += 1
         )
       } // LOOPS ENDS
@@ -99,18 +92,11 @@ function PasswordField() {
       /* PASSWORD - ALL TEST CASES PASS */
       if (testPass === passwordLimit.total_validations)
         setPasswordValid(true);
-        // checkSubmitBtn();
-
-      /* 
-       * PROBLEM HERE
-       * When updating your password, 
-       * please re-enter it for confirmation.
-       */
-      // if ( confirm.length > 0 ){
-      //   setConfirm('')
-      //   setConfirmValid(null);
-      // }
     }
+
+    /* TEST - Empty Input */
+    else
+      setPasswordValid(null);
   }
 
   /* ------OBJECT WITH JSX CODE---------- */
