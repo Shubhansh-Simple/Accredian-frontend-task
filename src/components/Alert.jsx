@@ -8,7 +8,8 @@ import { TiTick }   from 'react-icons/ti';
 import { MdCancel } from "react-icons/md";
 
 /*
- * Show success message with Tick icon and colors
+ * Show success message with 
+ * Tick icon and success colors
  */
 function SuccessMessage( {msg='Success'} ){
   return (
@@ -20,7 +21,8 @@ function SuccessMessage( {msg='Success'} ){
 }
 
 /*
- * Show error message with Cancel icon and colors
+ * Show error message with 
+ * Cancel icon and danger colors
  */
 function ErrMessage( {msg='Fail'} ){
   return (
@@ -32,59 +34,53 @@ function ErrMessage( {msg='Fail'} ){
 }
 
 /*
- * Iterate through entire message list if it's exist
- * also showing message based on it's visiblity 
+ * Show success/failure message 
+ * with their respective icons and colors
+ * based on it's visiblity
  */
-function ErrMessageList( {msgList=[], greenTick=false} ){
-  return (
-    <>
-      {
-        msgList 
-          &&
-        <div>
-          {
-            msgList
-              .filter( msg => msg.visibility === true )
-              .map( (msg,index) =>{
-                  return <ErrMessage key={index} msg={msg.msg} />
-              })
-          }
-        </div>
-      }
-    </>
-  );
-}
-
-const Message = ( {msg, greenTick} ) =>{
-  if ( greenTick ){
-    if ( msg.visibility )
-      return <ErrMessage msg={msg.msg} />
-    else
-      return <SuccessMessage msg={msg.msg} />
-  }
-  else if( msg.visibility ){
+function Message( {msg} ){
+  if ( msg.visibility )
     return <ErrMessage msg={msg.msg} />
-  }
+  else
+    return <SuccessMessage msg={msg.msg} />
 }
 
-const MessageIterate = ( {msgList, greenTick}) => {
-  return (
-    <>
-      {
+/*
+ * Iterate through entire message list if it's exist
+ * and show only error messages based on it's visiblity 
+ */
+function ErrMessageList( { msgList=[] } ){
+  if ( msgList.length > 0 )
+    return (
         msgList
-          &&
+          .filter( msg => msg.visibility === true )
+          .map( (msg,index) =>{
+              return <ErrMessage key={index} msg={msg.msg} />
+          })
+    );
+}
+
+/*
+ * Iterate through entire message list if it's exist
+ * Filter success and failure messages
+ * & show both of them with their
+ * individual icons and colors
+ */
+const MessageList = ( { msgList=[] }) => {
+  if ( msgList.length > 0 )
+    return (
         msgList.map((msg, index) => {
-          return <Message key={index} 
-                          msg={msg} 
-                          greenTick={greenTick} />
+          return <Message key={index} msg={msg} />
         })
-      }
-    </>
-  );
+    );
 }
 
 
-export { MessageIterate, SuccessMessage, ErrMessage, ErrMessageList };
+export { MessageList, 
+  SuccessMessage, 
+  ErrMessage, 
+  ErrMessageList 
+};
 
 
 

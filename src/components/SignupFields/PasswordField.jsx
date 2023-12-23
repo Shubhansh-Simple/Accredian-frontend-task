@@ -17,7 +17,7 @@ import { Form }     from 'react-bootstrap';
  */
 
 // Components
-import { SuccessMessage, MessageIterate  } from '../Alert';
+import { SuccessMessage, MessageList  } from '../Alert';
 
 // Alert Components
 import { passwordAlertMsg } from '../../validation/AlertMessage';
@@ -127,7 +127,7 @@ function PasswordField() {
          
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <MessageIterate msgList={passwordErr} greenTick={true} />
+          <MessageList msgList={passwordErr} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}
