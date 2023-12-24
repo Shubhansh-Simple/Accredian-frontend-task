@@ -9,15 +9,13 @@
 // React
 import { useState, useEffect } from 'react';
 
-// React-bootstrap
-import { Form }     from 'react-bootstrap'; 
-
 /* 
  * LOCAL-MODULES 
  */
 
 // Components
-import { SuccessMessage, ErrMessageList  } from '../Alert';
+import InputField from '../InputField';
+import { usernameProps } from '../InputProps';
 
 // Alert Text Messages
 import { usernameAlertMsg } from '../../validation/AlertMessage';
@@ -28,6 +26,7 @@ import { usernameLimit }    from '../../validation/AlertLimit';
 // Testing 
 import { usernameTesting }  from '../../validation/test/usernameTesting';
 
+console.log('Usernamefield Executed!');
 
 /*
  * Return Username Form Field OBJECT
@@ -42,6 +41,7 @@ function UsernameField(){
 
   /* OnpageLoad, set default error msg */
   useEffect(() => {
+
     setUsernameErrList(usernameAlertMsg);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -106,36 +106,23 @@ function UsernameField(){
     UsernameFieldJSX : (
 
       /* USERNAME FIELD (1/4) */
-      <Form.Group className='mb-2 px-2 py-3' controlId='formUsername'>
+      <InputField 
 
-        {/* Field Label */}
-        <Form.Label>
-          <strong>Username</strong>
-        </Form.Label>
+          // Static Props
+          id         = {usernameProps.id} 
+          label      = {usernameProps.label}
+          type       = {usernameProps.type}
+          placeholder= {usernameProps.placeholder}
+          successMsg = {usernameProps.successMsg} 
 
-        {/* Field Input */}
-        <Form.Control required 
-                      size='lg' 
-                      type='text' 
-                      value={username}
-                      onChange={onUsernameChange}
-                      isValid={usernameValid}
-                      isInvalid={ usernameValid !== null 
-                                    && 
-                                !usernameValid }
-                      placeholder='Type your username' />
-
-        {/* Show feedback msg on form invalid */}
-        <Form.Control.Feedback type='invalid'>
-          <ErrMessageList msgList={usernameErrList} />
-        </Form.Control.Feedback>
-
-        {/* Show feedback msg on form valid */}
-        <Form.Control.Feedback type='valid'>
-          <SuccessMessage msg={usernameLimit.success_msg} />
-        </Form.Control.Feedback>
-
-      </Form.Group>
+          // Dynamic Props
+          value      = {username}
+          onChange   = {onUsernameChange}
+          isValid    = {usernameValid}
+          isInvalid  = { usernameValid !== null 
+                            && 
+                         !usernameValid }
+          errMsgList = {usernameErrList} />
 
     ) /* JSX ENDS */
   }; /* Returned OBJECT */

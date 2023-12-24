@@ -10,7 +10,7 @@
 import { useState, useEffect } from 'react';
 
 // React-bootstrap
-import { Form,Button }     from 'react-bootstrap'; 
+import { Form,Button }   from 'react-bootstrap'; 
 
 /* 
  * LOCAL-MODULES 
@@ -35,12 +35,14 @@ const SignupForm = () =>{
   /* SUBMIT BUTTON STATE */
   const [ submitDisable, setSubmitDisable ] = useState(true);
 
+
   /* OnpageLoad, and when form field validity changed */
   useEffect(() => {
     checkSubmitBtn();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ usernameValid, emailValid, passwordValid, confirmValid ]);
+
 
    /* Enable submit btn only if form is valid */
   const checkSubmitBtn = () => {
@@ -58,7 +60,7 @@ const SignupForm = () =>{
     /* Prepare the data */
     const submittedData = {
       'username'        : username,
-      'email'         : email,
+      'email'           : email,
       'password'        : password,
       'confirmPassword' : confirm,
     }
@@ -67,6 +69,7 @@ const SignupForm = () =>{
 
   /* ----------JSX CODE---------- */
   return (
+
 
     /* SIGNUP FORM */
     <Form onSubmit={onFormSubmit}>

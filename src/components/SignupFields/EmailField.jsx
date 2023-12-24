@@ -2,24 +2,16 @@
  * Email Field of Signup Form
  */
 
-/* 
- * MODULES 
- */
-
 // React
 import { useState,useEffect } from 'react';
-
-// React-bootstrap
-import { Form }     from 'react-bootstrap'; 
 
 /* 
  * LOCAL-MODULES 
  */
 
 // Components
-import { SuccessMessage,
-         ErrMessage,
-         MessageIterate  } from '../Alert';
+import InputField     from '../InputField';
+import { emailProps } from '../InputProps';
 
 // Alert Components
 import { emailAlertMsg } from '../../validation/AlertMessage';
@@ -30,21 +22,22 @@ import { emailLimit }    from '../../validation/AlertLimit';
 // Testing 
 import { emailTesting }  from '../../validation/test/emailTesting';
 
+console.log('Emailfield Executed!');
 
 /*
  * Return Email Form Field OBJECT
- * with email, emailValid  state value
+ * with email, emailValid, state value
  */
 function EmailField() {
 
   /* EMAIL STATES */
   const [ email, setEmail ]         = useState('');
-  const [ emailErr, setEmailErr ]   = useState([]);
+  const [ emailErrList, setEmailErrList ]   = useState([]);
   const [emailValid, setEmailValid] = useState(null);
 
   /* OnpageLoad, set default error msg */
   useEffect(() => {
-    setEmailErr(emailAlertMsg);
+    setEmailErrList(emailAlertMsg);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,17 +45,52 @@ function EmailField() {
   /* Detect changes in EMAIL */
   const onEmailChange = e => {
 
-    const emailInput = e.target.value;
+    const emailInput    = e.target.value;
     const emailInputLen = emailInput.length;
 
     setEmail(emailInput);
 
-    if (emailInputLen > 5)
-      setEmailValid(true);
-    else if ( emailInputLen === 0 )
-      setEmailValid(null);
+    /* TEST - Non-Empty Input */
+    if ( emailInputLen > 0 ){
+
+      let testPass = 0;
+
+      /*
+       * Testing user inputs on each key stroke 
+       */
+      for (let i=0; i < emailLimit.total_validations; i++ ){
+
+        // Copy of current err msg state
+        let copyErrState  = [...emailErrList];
+
+        /* 
+         * Testing input value against test cases and 
+         * update error message visibility accordingly
+         */
+        copyErrState = emailTesting(i, copyErrState,
+                                       emailInput,
+                                       emailInputLen);
+        setEmailErrList(copyErrState);
+
+        (
+          copyErrState[i].visibility
+                ?
+          /* If err visibility is true then field become invalid */
+          setEmailValid(false)
+                :
+          /* Otherwise, test pass and counted */
+          testPass += 1
+        )
+      } // LOOPS ENDS
+
+      /* USERNAME - ALL TEST CASES PASS */
+      if (testPass === emailLimit.total_validations)
+       setEmailValid(true);
+    }
+
+    /* TEST - Empty Input */
     else
-      setEmailValid(false);
+      setEmailValid(null);
   }
 
   /* ------OBJECT WITH JSX CODE---------- */
@@ -72,32 +100,24 @@ function EmailField() {
     EmailFieldJSX : (
 
       /* EMAIL FIELD (2/4) */
-      <Form.Group className='mb-2 px-2 py-3' controlId='formEmail'>
-        <Form.Label>
-          <strong>Email</strong>
-        </Form.Label>
-        <Form.Control size='lg' 
-                      type='email' 
-                      value={email}
-                      onChange={onEmailChange}
-                      isValid={emailValid}
-                      isInvalid={ emailValid !== null 
-                                    && 
-                                !emailValid }
-                      placeholder='example@email.com' />
-        <Form.Text>Note : Email will be validated through OTP</Form.Text>
+      <InputField 
 
-        {/* Show feedback msg on form invalid */}
-        <Form.Control.Feedback type='invalid'>
-          <ErrMessage msg={'Enter a valid Email'}/>
-        </Form.Control.Feedback>
+          // Static Props
+          id         = {emailProps.id} 
+          label      = {emailProps.label}
+          type       = {emailProps.type}
+          placeholder= {emailProps.placeholder}
+          helpText   = {emailProps.helpText}
+          successMsg = {emailProps.successMsg} 
 
-        {/* Show feedback msg on form valid */}
-        <Form.Control.Feedback type='valid'>
-          <SuccessMessage msg={emailLimit.success_msg} />
-        </Form.Control.Feedback>
-
-      </Form.Group>
+          // Dynamic Props
+          value      = {email}
+          onChange   = {onEmailChange}
+          isValid    = {emailValid}
+          isInvalid  = { emailValid !== null 
+                            && 
+                         !emailValid }
+          errMsgList = {emailErrList} />
 
     ) /* JSX ENDS */
   }; /* Returned OBJECT */

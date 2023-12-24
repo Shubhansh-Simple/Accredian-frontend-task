@@ -2,22 +2,16 @@
  * Password Field of Signup Form
  */
 
-/* 
- * MODULES 
- */
-
 // React
 import { useState, useEffect } from 'react';
-
-// React-bootstrap
-import { Form }     from 'react-bootstrap'; 
 
 /* 
  * LOCAL-MODULES 
  */
 
 // Components
-import { SuccessMessage, MessageList  } from '../Alert';
+import InputField     from '../InputField';
+import { passwordProps } from '../InputProps';
 
 // Alert Text Messages
 import { passwordAlertMsg } from '../../validation/AlertMessage';
@@ -28,6 +22,7 @@ import { passwordLimit }    from '../../validation/AlertLimit';
 // Testing 
 import { passwordTesting }  from '../../validation/test/passwordTesting';
 
+console.log('Passwordfield Executed!');
 
 /*
  * Return Password Form Field OBJECT
@@ -43,6 +38,7 @@ function PasswordField() {
   /* OnpageLoad, set default error msg */
   useEffect(() => {
     setPasswordErrList(passwordAlertMsg);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -106,36 +102,23 @@ function PasswordField() {
     PasswordFieldJSX : (
 
       /* PASSWORD FIELD (3/4) */
-      <Form.Group className='mb-2 px-2 py-3' controlId='formPassword'>
+      <InputField 
 
-        {/* Field Label */}
-        <Form.Label>
-          <strong>Password</strong>
-        </Form.Label>
+          // Static Props
+          id         = {passwordProps.id} 
+          label      = {passwordProps.label}
+          type       = {passwordProps.type}
+          placeholder= {passwordProps.placeholder}
+          successMsg = {passwordProps.successMsg} 
 
-        {/* Field Input */}
-        <Form.Control required
-                      size='lg' 
-                      type='password' 
-                      value={password}
-                      onChange={onPasswordChange}
-                      isValid={passwordValid}
-                      isInvalid={ passwordValid !== null 
-                                    && 
-                                 !passwordValid }
-                      placeholder='Password' />
-         
-        {/* Show feedback msg on form invalid */}
-        <Form.Control.Feedback type='invalid'>
-          <MessageList msgList={passwordErrList} />
-        </Form.Control.Feedback>
-
-        {/* Show feedback msg on form valid */}
-        <Form.Control.Feedback type='valid'>
-          <SuccessMessage msg={passwordLimit.success_msg} />
-        </Form.Control.Feedback>
-
-      </Form.Group>
+          // Dynamic Props
+          value      = {password}
+          onChange   = {onPasswordChange}
+          isValid    = {passwordValid}
+          isInvalid  = { passwordValid !== null 
+                            && 
+                         !passwordValid }
+          errMsgList = {passwordErrList} />
 
     ) /* JSX ENDS */
   }; /* Returned OBJECT */

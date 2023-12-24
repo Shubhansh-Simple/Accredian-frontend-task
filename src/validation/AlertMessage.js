@@ -18,28 +18,28 @@ import {usernameLimit, passwordLimit, emailLimit} from "./AlertLimit";
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const usernameAlertMsg = [
-  /* * MSG -  MIN LEN * INDEX - 0 */
   {
+    /* ERR- MIN LEN,INDEX-0 */
     'visibility' : false,
     'msg'        : `Username must be atleast of ${usernameLimit.min_len} characters`
   },
-  /* * MSG -  MAX LEN * INDEX - 1 */
   {
+    /* ERR- MAX LEN,INDEX-1 */
     'visibility' : false,
     'msg'        : `Username must not be more than ${usernameLimit.max_len} characters`
   },
-  /* * MSG -  NO SPACE * INDEX - 2 */
   {
+    /* ERR- NO SPACE,INDEX-2 */
     'visibility' : false,
     'msg'        : 'No spaces allowed'                           
   },
-  /* * MSG - @ NOT ALLOW * INDEX - 3 */
   {
+    /* ERR-@ NOT ALLOW,INDEX-3 */
     'visibility' : false,
     'msg'        : 'Special character "@" not allowed in username'
   },
-  /* * MSG -  ALREADY EXIST * INDEX - 4 */
   {
+    /* ERR- ALREADY EXIST,INDEX-4 */
     'visibility' : false,
     'msg'        : 'Username already exist'                       
   },
@@ -51,12 +51,29 @@ const usernameAlertMsg = [
  */
 const emailAlertMsg = [
   {
-    'visibility'      : false,
-    'no_space_err'    : 'No spaces allowed'
+    /* ERR- MIN LEN,INDEX-0 */
+    'visibility' : false,
+    'msg'        : 'Enter a valid email'
   },
   {
-    'visibility'        : false,
-    'already_exist_err' : 'Email already exist'
+    /* ERR- MAX LEN,INDEX-1 */
+    'visibility' : false,
+    'msg'        : `Email is too long (Max length is ${emailLimit.max_len})` 
+  },
+  {
+    /* ERR- NO SPACE,INDEX-2 */
+    'visibility' : false,
+    'msg'        : 'No spaces allowed'
+  },
+  {
+    /* ERR-'.' Must not starts or ends with this, INDEX-3 */
+    'visibility' : false,
+    'msg'        : 'Must not starts or ends with period character'
+  },
+  {
+    /* ERR- ALREADY EXIST,INDEX-4 */
+    'visibility' : false,
+    'msg'        : 'Email already exist'
   }
 ]
 
@@ -65,33 +82,33 @@ const emailAlertMsg = [
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
 const passwordAlertMsg = [
-  /* * MSG -  MIN LEN * INDEX - 0 */
   {
+    /* ERR- MIN LEN,INDEX-0 */
     'visibility' : false,
     'msg'        : `Password must be atleast of ${passwordLimit.min_len} characters`
   },
-  /* * MSG -  MAX LEN * INDEX - 1 */
   {
+    /* ERR- MAX LEN,INDEX-1 */
     'visibility' : false,
     'msg'        : `Password must not be more than ${passwordLimit.max_len} characters ` 
   },
-  /* * MSG -  MUST HAS LOWER * INDEX - 2 */
   {
+    /* ERR- MUST HAS LOWER,INDEX-2 */
     'visibility' : false,
     'msg'        : 'Password must contain atleast one lowercase character'
   },
-  /* * MSG -  MUST HAS UPPER * INDEX - 3 */
   {
+    /* ERR- MUST HAS UPPER,INDEX-3 */
     'visibility' : false,
     'msg'        : 'Password must contain atleast one uppercase character'
   },
-  /* * MSG -  MUST HAS DIGIT * INDEX - 4 */
   {
+    /* ERR- MUST HAS DIGIT,INDEX-4 */
     'visibility' : false,
     'msg'        : 'Password must contain atleast one digit' 
   },
-  /* * MSG -  MUST HAS SPECIAL * INDEX - 5 */
   {
+    /* ERR- MUST HAS SPECIAL,INDEX-5 */
     'visibility' : false,
     'msg'        : 'Password must contain atleast one special character'
   },
@@ -101,10 +118,12 @@ const passwordAlertMsg = [
  * CONFIRM PASSWORD ALERT MESSAGE 
  * NOTE - ORDER OF MESSAGE MATTERS!
  */
-const confirmAlertMsg = {
+const confirmAlertMsg = [
+  {
+    'visibility' : true,
     'msg'        : 'Password does not match'
   }
-
+]
 
 export {
   usernameAlertMsg, 

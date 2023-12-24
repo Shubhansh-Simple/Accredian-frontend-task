@@ -44,7 +44,6 @@ const usernameLimit = {
   'min_len'            : 6,
   'max_len'            : 12,
   'not_allow_char'     : '@', // need to improve
-  'success_msg'        : 'Username is taken',
   'total_validations'  : 5,
 }
 
@@ -52,8 +51,8 @@ const usernameLimit = {
  * Email Field
  */
 const emailLimit = {
-  'max_len'            : 20,
-  'success_msg'        : 'Email is taken',
+  'max_len'            : 254,
+  'total_validations'  : 5,
 }
 
 /*
@@ -63,22 +62,12 @@ const passwordLimit = {
   'min_len'            : 8,
   'max_len'            : 15,
   'allow_special_char' : '~`!@#$%^&*()-_+=', // unused
-  'success_msg'        : 'Password is taken',
   'total_validations'  : 6,
 }
-
-/*
- * Confirm Password Field
- */
-const confirmLimit = {
-  'success_msg'        : 'Confirm password matched'
-}
-
 
 export {  usernameLimit, 
           emailLimit,
           passwordLimit,
-          confirmLimit,
           ascii_range,
           specialCharacter
        };

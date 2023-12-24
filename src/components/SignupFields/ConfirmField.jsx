@@ -9,21 +9,16 @@
 // React
 import { useEffect, useState } from 'react';
 
-// React-bootstrap
-import { Form }     from 'react-bootstrap'; 
-
 /* 
  * LOCAL-MODULES 
  */
 
 // Components
-import { SuccessMessage, ErrMessage } from '../Alert';
-
-// Alert Components
+import InputField          from '../InputField';
+import { confirmProps }    from '../InputProps';
 import { confirmAlertMsg } from '../../validation/AlertMessage';
 
-// Validation Limits
-import { confirmLimit }    from '../../validation/AlertLimit';
+console.log('Confirm field Executed!');
 
 /*
  * Return Confirm Password Form Field OBJECT
@@ -74,38 +69,25 @@ function ConfirmField( password,passwordValid ) {
     confirmValid,
     ConfirmFieldJSX: (
 
-      /* CONFIRM-PASSWORD FIELD (4/4) */
-      <Form.Group className='mb-2 px-2 py-3' controlId='formConfirm'>
+      /* CONFIRM PASSWORD FIELD (4/4) */
+      <InputField 
 
-        {/* Field Label */}
-        <Form.Label>
-          <strong>Confirm Password</strong>
-        </Form.Label>
+          // Static Props
+          id         = {confirmProps.id} 
+          label      = {confirmProps.label}
+          type       = {confirmProps.type}
+          placeholder= {confirmProps.placeholder}
+          successMsg = {confirmProps.successMsg} 
 
-        {/* Field Input */}
-        <Form.Control required
-          size='lg'
-          type='password'
-          value={confirm}
-          onChange={onConfirmChange}
-          isValid={confirmValid}
-          isInvalid={ confirmValid !== null
-                          &&
-                      !confirmValid }
-          disabled={!passwordValid}
-          placeholder='Retype password' />
-
-        {/* Show feedback msg on form invalid */}
-        <Form.Control.Feedback type='invalid'>
-          <ErrMessage msg={confirmAlertMsg.msg} />
-        </Form.Control.Feedback>
-
-        {/* Show feedback msg on form valid */}
-        <Form.Control.Feedback type='valid'>
-          <SuccessMessage msg={confirmLimit.success_msg} />
-        </Form.Control.Feedback>
-
-      </Form.Group>
+          // Dynamic Props
+          value      = {confirm}
+          onChange   = {onConfirmChange}
+          isValid    = {confirmValid}
+          isInvalid  = { confirmValid !== null 
+                            && 
+                         !confirmValid }
+          disabled   = {!passwordValid}
+          errMsgList = {confirmAlertMsg} />
 
     ) /* JSX ENDS */
   }; /* Returned OBJECT */
