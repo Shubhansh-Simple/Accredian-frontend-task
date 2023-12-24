@@ -34,9 +34,8 @@ function ErrMessage( {msg='Fail'} ){
 }
 
 /*
- * Show success/failure message 
- * with their respective icons and colors
- * based on it's visiblity
+ * Show message with their respective 
+ * colors and icons based on their visiblity
  */
 function Message( {msg} ){
   if ( msg.visibility )
@@ -45,29 +44,12 @@ function Message( {msg} ){
     return <SuccessMessage msg={msg.msg} />
 }
 
-/*
- * Iterate through entire message list if it's exist
- * and show only error messages based on it's visiblity 
- */
-function ErrMessageList( { msgList=[] } ){
-  if ( msgList.length > 0 )
-    return (
-        msgList
-          .filter( msg => msg.visibility === true )
-          .map( (msg,index) =>{
-              return <ErrMessage key={index} msg={msg.msg} />
-          })
-    );
-}
 
 /*
- * Iterate through entire message list if it's exist
- * Filter success and failure messages
- * & show both of them with their
- * individual icons and colors
+ * Iterate through entire message list 
+ * & pass them to Message component
  */
-const MessageList = ( { msgList=[] }) => {
-  if ( msgList.length > 0 )
+function MessageList( { msgList=[] }){
     return (
         msgList.map((msg, index) => {
           return <Message key={index} msg={msg} />
@@ -76,9 +58,26 @@ const MessageList = ( { msgList=[] }) => {
 }
 
 
+/*
+ * Iterate through entire message list if it's exist
+ */
+function ErrMessageList( { msgList=[], showErrStatus=false } ){
+  if ( msgList.length > 0 ){
+    if ( showErrStatus )
+      return <MessageList msgList={msgList} />
+    else
+      return (
+          msgList
+            .filter( msg => msg.visibility === true )
+            .map( (msg,index) =>{
+                return <ErrMessage key={index} msg={msg.msg} />
+            })
+      );
+  }
+}
+
 export { MessageList, 
   SuccessMessage, 
-  ErrMessage, 
   ErrMessageList 
 };
 

@@ -31,6 +31,7 @@ const passwordProps = {
  'type'           : 'password',
  'placeholder'    : 'Password',
  'successMsg'     : 'Password is taken',
+ 'showErrStatus'  : true,
 }
 
 

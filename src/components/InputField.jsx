@@ -14,6 +14,7 @@ import { SuccessMessage, ErrMessageList  } from './Alert';
  * PasswordField, ConfirmPasswordField
  */
 const InputField = ({
+  /* Non-Default Value Props */
   id,
   label,
   type,
@@ -21,11 +22,13 @@ const InputField = ({
   onChange,
   isValid,
   isInvalid,
-  disabled=false,
   placeholder,
-  helpText='',
   errMsgList,
   successMsg,
+  /* Default Value Props */
+  helpText='',
+  disabled=false,
+  showErrStatus=false
 }) => {
 
   /* ------JSX CODE----- */
@@ -41,21 +44,21 @@ const InputField = ({
 
         {/* Field Input */}
         <Form.Control required 
-                      size        ='lg' 
-                      type        ={type}
-                      value       ={value}
-                      onChange    ={onChange}
-                      isValid     ={isValid}
-                      isInvalid   ={isInvalid}
-                      disabled    ={disabled}
-                      placeholder ={placeholder} />
+                      size        = 'lg' 
+                      type        = {type}
+                      value       = {value}
+                      onChange    = {onChange}
+                      isValid     = {isValid}
+                      isInvalid   = {isInvalid}
+                      disabled    = {disabled}
+                      placeholder = {placeholder} />
 
         {/* Field Help Text */}
         <Form.Text>{helpText}</Form.Text>
 
         {/* Show feedback msg on form invalid */}
         <Form.Control.Feedback type='invalid'>
-          <ErrMessageList msgList={errMsgList} />
+          <ErrMessageList msgList={errMsgList} showErrStatus={showErrStatus} />
         </Form.Control.Feedback>
 
         {/* Show feedback msg on form valid */}

@@ -105,11 +105,12 @@ function PasswordField() {
       <InputField 
 
           // Static Props
-          id         = {passwordProps.id} 
-          label      = {passwordProps.label}
-          type       = {passwordProps.type}
-          placeholder= {passwordProps.placeholder}
-          successMsg = {passwordProps.successMsg} 
+          id           = {passwordProps.id} 
+          label        = {passwordProps.label}
+          type         = {passwordProps.type}
+          placeholder  = {passwordProps.placeholder}
+          successMsg   = {passwordProps.successMsg} 
+          showErrStatus= {passwordProps.showErrStatus}
 
           // Dynamic Props
           value      = {password}
