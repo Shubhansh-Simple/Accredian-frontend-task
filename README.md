@@ -1,6 +1,6 @@
 # MERN Authentication App
 ### Project Demo
-<a alt="Shop Inventory Website" href="#">
+<a alt="MERN Authentication App" href="#">
   <h5>Coming Soon</h5>
 </a>
 
