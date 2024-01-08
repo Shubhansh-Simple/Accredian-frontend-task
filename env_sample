@@ -1,0 +1,3 @@
+NODE_ENV=development || production 
+PORT=8000
+MONGODB_URI='Enter your database access key here'

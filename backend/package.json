@@ -5,8 +5,8 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "start": "node auth-api/server.js",
+    "server": "nodemon auth-api/server.js"
   },
   "author": "shubhansh7777@gmail.com",
   "license": "MIT",
