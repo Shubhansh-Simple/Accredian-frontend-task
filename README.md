@@ -7,7 +7,7 @@
 ## Invalid Form
 <p align="center">
   <a alt="Valid Form" href="https://github.com/Shubhansh-Simple/Accredian-frontend-task/tree/main">
-    <img alt="Logo" src="https://raw.githubusercontent.com/Shubhansh-Simple/Accredian-frontend-task/main/Pictures/InvalidForm.png" height="400" /> 
+    <img alt="Logo" src="https://raw.githubusercontent.com/Shubhansh-Simple/Accredian-frontend-task/main/frontend/Pictures/InvalidForm.png" height="400" /> 
   </a>
 </p>
 
@@ -15,7 +15,7 @@
 ## Valid Form
 <p align="center">
   <a alt="Valid Form" href="https://github.com/Shubhansh-Simple/Accredian-frontend-task/tree/main">
-    <img alt="Logo" src="https://raw.githubusercontent.com/Shubhansh-Simple/Accredian-frontend-task/main/Pictures/ValidForm.png" height="400" /> 
+    <img alt="Logo" src="https://raw.githubusercontent.com/Shubhansh-Simple/Accredian-frontend-task/main/frontend/Pictures/ValidForm.png" height="400" /> 
   </a>
 </p>
 
